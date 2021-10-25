@@ -1,0 +1,22 @@
+.btn-container{
+    text-align: center;
+}
+
+.btn-container .btn-para{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-container .btn-para a {
+    color: #000;
+    text-decoration: none;
+    background-color: #aaa;
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 25px;
+}

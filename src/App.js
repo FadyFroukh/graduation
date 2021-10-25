@@ -1,23 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
-
+import {BrowserRouter as Router , Switch , Route} from 'react-router-dom';
+import Home from './comps/pages/Home/Home';
+import { useEffect } from 'react';
+import Table from './comps/pages/Table/Table';
+import Menu from './comps/pages/Menu/Menu';
+import MenuMeal from './comps/MenuMeal';
+import Admin from './comps/pages/Admin/Admin';
 function App() {
+
+  useEffect(()=>{
+    
+  },[])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Switch> 
+          <Route path="/" exact component={Home}/>
+          <Route path="/admin" component={Admin}/>
+          <Route path="/table" component={Table}/>
+          <Route path="/menu" exact component={Menu}/>
+          <Route path="/menu/:id" component={MenuMeal}/>
+         </Switch>
+      </Router>
     </div>
   );
 }

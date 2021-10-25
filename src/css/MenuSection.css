@@ -1,0 +1,61 @@
+.meals-div{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 500px;
+    overflow-y: scroll;
+    margin-bottom: 25px;
+    padding: 8px; 
+    border-radius: 10px;
+}
+.meals-div:nth-child(even){
+    background-color: #ccceee;
+}
+.meals-div:nth-of-type(odd){
+    background-color: #fff;
+}
+.meals-div p {
+    margin: 0;
+}
+.meals-div h4 {
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+.meals-div .meals-form {
+    margin-bottom: 10px;
+}
+.meals-div .meals-form input {
+    width: 100%;
+    padding: 6px;
+    border-radius: 10px;
+    border: 1px solid #000;
+}
+.meals-div .meals-form input:focus{
+    outline: none;
+}
+.meals-div .meals .meal-item{
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.meals-div .meals .meal-item:nth-child(even){
+    background-color: #eee;
+}
+.meals-div .meals .meal-item .meal-name{
+    font-size: 25px;
+}
+.meals-div .meals .meal-item .price{
+    font-size: 25px;
+}
+.meals-div .meals .meal-item .icons svg:hover{
+    cursor: pointer;
+}
+
+/* No Meals Error */
+.no-meals{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
