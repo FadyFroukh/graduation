@@ -39,6 +39,7 @@
     align-items: center;
     margin-bottom: 5px;
 }
+
 .meals-div .meals .meal-item:nth-child(even){
     background-color: #eee;
 }

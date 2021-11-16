@@ -5,9 +5,11 @@ const NewMeal = require("./models/NewMeal");
 const NewItem = require("./models/NewItem");
 
 const mongoClient = mongo.MongoClient;
+const ObjectId = mongo.ObjectId;
 const app = express();
-const port = 3001 || process.env.PORT;
+const port = 4000 || process.env.PORT;
 const url = "mongodb://localhost:27017/";
+
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -16,10 +18,16 @@ app.use(cors({
   origin:"http://localhost:3000"
 }))
 
-
-mongoClient.connect("mongodb://localhost:27017/graduation",function(err,db){
-    if (err) throw err;
-});
+app.get("/",(req,res)=>{
+  res.json({
+    "Welcome":"Welcome to the Restaurent API",
+    "Pages Avaliable":{
+      "Admin":"/admins",
+      "Menu":"/menu",
+      "Items":"/items"
+    }
+  })
+})
 
 app.get("/admins",(req,res)=>{
     // res.header("Access-Control-Allow-Origin","http://localhost:3000")
@@ -108,10 +116,12 @@ app.post("/items",(req,res)=>{
 
 app.delete("/items",(req,res)=>{
 
-  MongoClient.connect(url, function(err, db) {
+  const id = req.body.id;
+
+  mongoClient.connect(url, function(err, db) {
     if (err) throw err;
-    var dbo = db.db("mydb");
-    dbo.collection("customers").deleteOne({}, function(err, obj) {
+    var dbo = db.db("graduation");
+    dbo.collection("items").deleteOne({"_id" : ObjectId(id)}, function(err, obj) {
       if (err) throw err;
       console.log("1 document deleted");
       db.close();
@@ -120,8 +130,37 @@ app.delete("/items",(req,res)=>{
   
 })
 
-app.listen(port,()=>{
-    console.log(`Listening on port : ${port}`);
+app.get("/tables",(req,res)=>{
+
+  mongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("graduation");
+    dbo.collection("tables").find({}).toArray(function(err, result) {
+      if (err) throw err;
+      res.send(result)
+      db.close();
+    });
+  }); 
+
+})
+
+app.post("/tables",(req,res)=>{
+
+  const table = req.body.table;
+
+  mongoClient.connect(url,function(err,db){
+    if(err) throw err;
+    var dbo = db.db("graduation");
+    dbo.collection("tables").insertOne(table,function(err,result){
+      if(err) throw err;
+      res.send(result);
+      db.close();
+    })
+  })
+
 })
 
 
+app.listen(port,()=>{
+    console.log(`Listening on port : ${port}`);
+})

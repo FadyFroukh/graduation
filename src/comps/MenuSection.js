@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {IconContext} from 'react-icons/lib';
 import "../css/MenuSection.css";
 import TableIcons from './TableIcons';
-import AdminIcons from './AdminIcons';
 
 function MenuSection({heading,meals,divClass,isAdmin}){
 
@@ -44,14 +43,9 @@ function MenuSection({heading,meals,divClass,isAdmin}){
                                     :
                                     meals.map((meal,index)=>
                                     <div className="meal-item" key={index}>
-                                        <p className="meal-name">{meal.itemName}</p>
-                                        <span className="price">{meal.itemPrice}</span>
-                                        {
-                                            isAdmin ? 
-                                            <AdminIcons/> 
-                                            :
-                                            <TableIcons mealName={meal.itemName} mealPrice={meal.itemPrice}/>
-                                        }
+                                        <div className="meal-name">{meal.itemName}</div>
+                                        <div className="price">{meal.itemPrice}</div>
+                                        <TableIcons mealName={meal.itemName} mealPrice={meal.itemPrice}/>
                                     </div>
                                     )
                                 }
@@ -64,11 +58,7 @@ function MenuSection({heading,meals,divClass,isAdmin}){
                                         <p className="meal-name">{meal.itemName}</p>
                                         <p className="price">{meal.itemPrice}$</p>
                                         <div className="icons">
-                                            isAdmin ? 
-                                                <AdminIcons/> 
-                                                :
-                                                <TableIcons mealName={meal.itemName}/>
-
+                                            <TableIcons mealName={meal.itemName}/>
                                         </div>
                                     </div>
                                     )

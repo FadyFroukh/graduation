@@ -5,7 +5,8 @@ import { useEffect } from 'react';
 import Table from './comps/pages/Table/Table';
 import Menu from './comps/pages/Menu/Menu';
 import MenuMeal from './comps/MenuMeal';
-import Admin from './comps/pages/Admin/Admin';
+import Admin from './comps/pages/Admin/Admin'
+import Operation from './comps/Operation';
 function App() {
 
   useEffect(()=>{
@@ -17,8 +18,9 @@ function App() {
       <Router>
         <Switch> 
           <Route path="/" exact component={Home}/>
-          <Route path="/admin" component={Admin}/>
           <Route path="/table" component={Table}/>
+          <Route path="/admin" exact component={Admin}/>
+          <Route path="/admin/:id" component={Operation}/>
           <Route path="/menu" exact component={Menu}/>
           <Route path="/menu/:id" component={MenuMeal}/>
          </Switch>

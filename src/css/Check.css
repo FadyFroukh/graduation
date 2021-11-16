@@ -1,0 +1,87 @@
+.check-overlay{
+    height: 150vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    background-color: rgba(222,222,222,0.8);
+}
+
+.check-overlay .row {
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.check-overlay .check-div{
+    min-height: 80vh;
+    overflow-y:scroll;
+}
+.check-overlay .check-div .check-item{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 60px;
+    margin-bottom: 10px;
+}
+.check-div .check-item:nth-of-type(odd){
+    background-color: #aaa;
+}
+.check-item > div{
+    width: 33.333%;
+    display: flex;
+    justify-content: center;
+}
+.check-item .item-name , .check-item .item-price{
+    font-size: 23px;
+}
+.check-header{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2.5px solid;
+    padding-bottom: 20px;
+}
+.check-div .total{
+    display: flex;
+    padding: 8px;
+    justify-content: space-around;
+    align-items: center;
+    height:70px;
+    margin-top: 30px;
+}
+.check-div .total p {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.check-btn{
+    margin-top: 20px;
+    display: flex;
+    justify-content: right;
+}
+.check-btn > button{
+    color: #000;
+    text-decoration: none;
+    background-color: #aaa;
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 25px;
+    width: 200px;
+    height:60px;
+    border: none;
+}
+.check-out{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.check-out button{
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    background-color: royalblue;
+    width: 200px;
+}

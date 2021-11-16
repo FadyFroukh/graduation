@@ -3,9 +3,6 @@
     background-color: #eee;
 }
 
-.menu .btn-container{
-    margin-top: 0 !important;
-}
 
 /* Check Popup */
 .check{
@@ -38,3 +35,4 @@
 .check .total p {
     margin-bottom: 0;
 }
+

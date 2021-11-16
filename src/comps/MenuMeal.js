@@ -5,7 +5,6 @@ import axios from 'axios';
 import MenuError from './MenuError';
 import "../css/MenuError.css";
 import Button from './pages/Button';
-import CheckButton from './CheckButton';
 
 function MenuMeal({match}){
     let id = match.params.id;
@@ -16,7 +15,6 @@ function MenuMeal({match}){
     const [sweets,setSweets] = useState([]);
     const [shishas,setShishas] = useState([]);
     const [error,setError] = useState(false);
-
 
     useEffect(()=>{
         axios.get("http://localhost:3001/menu").then(res=>{
@@ -38,10 +36,11 @@ function MenuMeal({match}){
         return(
             <div>
             <Container>
-                <CheckButton isStart={true}/>
+                <div className="col-lg-6">
+                    <Button btnText="Go Back" marginTop="20px" btnWidth="200px" btnLink="/table"/>
+                </div>              
             </Container>
             <Container isCenter={true}>
-                <Button btnText="Go Back" marginTop="20px" btnWidth="200px" btnLink="/table"/>
                 <MenuSection heading={id.replace(/^\w/, (c) => c.toUpperCase())} meals={meals} divClass="col-lg-6" isAdmin={false}/>
             </Container>
             </div>

@@ -5,7 +5,6 @@ import Header from '../../Header';
 import Button from '../Button';
 import {FaChevronLeft,FaChevronRight} from 'react-icons/fa';
 import {IconContext} from 'react-icons/lib'
-
 function Table(){
 
     const [imgNum,setImgNum] = useState(1);
@@ -30,6 +29,7 @@ function Table(){
         setDay(new Date().getUTCDay());
 
     },[imgNum, meals.length])
+
 
     const moveLeft = ()=>{
         if(imgNum <= meals.length && imgNum !== 1){
@@ -69,7 +69,7 @@ function Table(){
         <>
         <IconContext.Provider value={{color:"#fff",size:50}}>
             <main className="table-page-overlay">
-                <Header name="Smart Menu"/>
+                <Header name="ST-Menu"/>
                 <Container>
                     <div className="col-lg-12 today-date">
                         <p>Today is {getDay()}</p>

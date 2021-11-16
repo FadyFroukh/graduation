@@ -24,7 +24,7 @@ function TableIcons({mealName,mealPrice}){
     },[mealName,mealPrice,cookies.total])
 
     const handleAddToCheck = ()=>{
-        axios.post("http://localhost:3001/items",{
+        axios.post("http://localhost:4000/items",{
             itemName:checkMeal,
             itemPrice:checkPrice,
             addedAt:new Date(),
@@ -32,7 +32,7 @@ function TableIcons({mealName,mealPrice}){
         }).then(res=>{
           console.log(res.data);
           swal({title:"Meal Added Successfully",text:`Added ${mealName} to the check`,icon:"success"});
-          setCookie("total",Number(cookies.total) + Number(checkPrice),{path:"/menu", sameSite:"strict"});
+          setCookie("total", Number(cookies.total) + Number(checkPrice), {path:"/menu", sameSite:"strict"});
         }).catch(err=>{
             swal({title:"Something went wrong",text:"Contact the staff please",icon:"error"});
         })
