@@ -3,9 +3,7 @@ import {IconContext} from 'react-icons/lib';
 import "../css/MenuSection.css";
 import TableIcons from './TableIcons';
 
-function MenuSection({heading,meals,divClass,isAdmin}){
-
-    //States
+function MenuSection({heading,meals,divClass}){
 
     const [search,setSearch] = useState("");
     const [newMeals,setNewMeals] = useState([]);
@@ -18,7 +16,6 @@ function MenuSection({heading,meals,divClass,isAdmin}){
     const handleForm = (e)=>{
         e.preventDefault();
     }
-
 
     return(
         <>
@@ -45,7 +42,7 @@ function MenuSection({heading,meals,divClass,isAdmin}){
                                     <div className="meal-item" key={index}>
                                         <div className="meal-name">{meal.itemName}</div>
                                         <div className="price">{meal.itemPrice}</div>
-                                        <TableIcons mealName={meal.itemName} mealPrice={meal.itemPrice}/>
+                                        <TableIcons mealName={meal.itemName} mealPrice={meal.itemPrice} mealInfo={meal.itemInfo}/>
                                     </div>
                                     )
                                 }

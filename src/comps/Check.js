@@ -1,23 +1,27 @@
-import React , {useState} from 'react';
+import React , {useState,useEffect} from 'react';
 import "../css/Check.css";
 import Container from '../comps/Container';
 import {FaTimes} from 'react-icons/fa';
 import {IconContext} from 'react-icons/lib';
-import {useCookies} from 'react-cookie';
 import CheckItem from './CheckItem';
 import axios from 'axios';
-function Check({items}){
+function Check(){
 
     const [click,setClick] = useState(false);
-    const [cookies,setCookie] = useCookies();
+    const [orders,setOrders] = useState([]);
+    const [total,setTotal] = useState(0);
+    
+    useEffect(()=>{
+        axios.get("http://localhost:4000/tables/" + JSON.parse(localStorage.getItem("user"))._id).then(res=>{
+            setOrders(res.data.orders);
+        }).catch(err=>{
+            console.log("An error occured");
+        })
 
+    },[orders])
 
     const handleExit = ()=>{
         setClick(!click)
-    }
-
-    const checkOut = ()=>{
-        
     }
 
     return(
@@ -33,23 +37,19 @@ function Check({items}){
                         </div>
                         <div className="col-lg-12 check-div">
                             {
-                                items.map((item,index)=>
-                                    <CheckItem key={index} item={item}/>
+                                orders.map((order,index)=>
+                                    <CheckItem key={index} order={order}/>
                                 )
                             }
                             <div className="total">
                                 {
-                                    items.length === 0 ? <h3>You Should Order Something First!</h3> : <>
+                                    orders.length === 0 ? <h3>You Should Order Something First!</h3> : <>
                                         <p>Total Amount</p>
-                                        <p>{cookies.total}$</p>
+                                        <p>{total}</p>
                                      </>
                                 }
                             </div>
                         </div>
-                        <div className="col-lg-12 check-out">
-                            <button onClick={checkOut}>Check Out !</button>
-                        </div>
-
                     </Container>
                 </div>
                 </IconContext.Provider>

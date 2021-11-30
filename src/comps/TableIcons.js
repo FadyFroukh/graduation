@@ -1,47 +1,35 @@
 import axios from 'axios';
 import React, {useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
 import {FaPlusCircle,FaInfoCircle} from 'react-icons/fa';
 import swal from 'sweetalert';
 
 
-function TableIcons({mealName,mealPrice}){
+function TableIcons({mealName,mealPrice,mealInfo}){
     
     const [checkMeal,setCheckMeal] = useState("");
     const [checkPrice,setCheckPrice] = useState(0);
 
-    const [cookies,setCookie] = useCookies(["tableID","total"]);
-
-
     useEffect(()=>{
         setCheckMeal(mealName);
         setCheckPrice(mealPrice);
-
-        if (cookies.total === undefined){
-            setCookie("total"," ",{path:"/menu",sameSite:"strict"});
-        }
-        
-    },[mealName,mealPrice,cookies.total])
+    },[mealName,mealPrice])
 
     const handleAddToCheck = ()=>{
-        axios.post("http://localhost:4000/items",{
+        axios.post("http://localhost:4000/orders",{
             itemName:checkMeal,
             itemPrice:checkPrice,
             addedAt:new Date(),
-            tableID:cookies.tableID
+            table:JSON.parse(localStorage.getItem("user"))._id
         }).then(res=>{
           console.log(res.data);
           swal({title:"Meal Added Successfully",text:`Added ${mealName} to the check`,icon:"success"});
-          setCookie("total", Number(cookies.total) + Number(checkPrice), {path:"/menu", sameSite:"strict"});
         }).catch(err=>{
             swal({title:"Something went wrong",text:"Contact the staff please",icon:"error"});
         })
-
-        
     }
 
     const handleShowInfo = ()=>{
-        alert(typeof(cookies.tableID));
+        swal({title:"Meal Information",text:mealInfo,icon:"info"})
     }
 
     return(

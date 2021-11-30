@@ -1,0 +1,18 @@
+.order{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    height: 60px;
+    padding: 6px;
+    margin-bottom: 10px;
+}
+.order .order-ops{
+    cursor: pointer;
+}
+.order p {
+    margin: 0;
+}
+.order:nth-child(even){
+    background-color: #eee;
+}

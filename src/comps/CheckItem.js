@@ -1,26 +1,21 @@
 import React from 'react';
 import {FaTrash} from 'react-icons/fa';
 import axios from 'axios';
-import {useCookies} from "react-cookie";
 
-function CheckItem({item}){
+function CheckItem({order}){
 
-    const [cookies,setCookie] = useCookies(["total"]);
-
-    const handleDelete = (e)=>{
-        axios.delete("http://localhost:4000/items",{data:{id:item._id}}).then(res=>{
+    const handleDelete = ()=>{
+        axios.delete("http://localhost:4000/orders/" + order._id).then(res=>{
         }).catch(err=>{
             console.log("Not correct");
         })
-
-        setCookie("total",Number(cookies.total) - Number(item.itemPrice),{path:"/menu", sameSite:"strict"});
     }
 
     return(
         <div className="check-item">
-            <div className="item-name">{item.itemName}</div>
-            <div className="item-price">{item.itemPrice}</div>
-            <div>{item._id}</div>
+            <div className="item-name">{order.itemName}</div>
+            <div className="item-price">{order.itemPrice}</div>
+            <div>{order._id}</div>
             <div className="item-delete"><FaTrash onClick={handleDelete}/></div>
         </div>  
     );

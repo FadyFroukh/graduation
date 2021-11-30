@@ -1,5 +1,5 @@
 /* Add Meal Styling */
-.add-meal-overlay , .edit-meal-overlay{
+.add-meal-overlay , .edit-meal-overlay , .add-user-overlay , .edit-user-overlay{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,19 +10,19 @@
     margin-bottom: 20px;
     margin-top: 30px;
 }
-.add-meal-form label , .add-meal-form input{
+.add-meal-form label , .add-meal-form input , .add-user-form label , .add-user-form input{
     display: block;
     margin-bottom: 12px;
 }
-.add-meal-form input{
+.add-meal-form input , .add-user-form input{
     width: 300px;
     padding: 5px;
 }
-.add-meal-form .submit-part{
+.add-meal-form .submit-part , .add-user-form .submit-part{
     display: flex;
     justify-content: center;
 }
-.add-meal-form .submit-part button{
+.add-meal-form .submit-part button , .add-user-form .submit-part button{
     padding: 10px;
     width: 180px;
     height: 60px;
@@ -33,29 +33,19 @@
     font-weight: bold;
 }
 
-/* Edit or remove styling */
-.edit-meal-overlay .menu-meals{
-    min-height: 80vh;
-    width: 100%;
+/* Edit or remove Meals styling */
+.edit-meal-overlay h2 , .edit-user-overlay h2 {
+    margin-bottom: 20px;
+}
+.edit-meal-overlay .edit-meals , .edit-user-overlay .edit-users{
+    width: 400px;
+    height: 500px;
     overflow-y: scroll;
 }
-.menu-meals .meal{
-    display: flex;
-    justify-content: space-between;
-    font-size: 25px;
-}
-.menu-meals .meal > div{
-    display: flex;
-    justify-content: center;
-    width: 25%;
-}
-.menu-meals .meal svg:last-of-type{
-    margin-left: 20px;
+
+svg{
     cursor: pointer;
 }
-.menu-meals .meal svg:last-of-type{
-    color: #082;
-}
-.menu-meals .meal svg:first-of-type{
-    color: #d63031
-}
+
+/* Add User Styling */
+

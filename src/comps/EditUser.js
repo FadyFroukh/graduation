@@ -1,19 +1,19 @@
 import React from 'react';
-import Meal from './Meal';
+import User from './User';
 import Button from './pages/Button';
 
-function EditMeal({menu}){
+function EditUser({users}){
 
     return(
         <>
-            <main className="edit-meal-overlay">
+            <main className="edit-user-overlay">
                 <Button btnLink="/admin" btnText="Go Back" btnWidth="150px"/>
-                <h2>Edit or Remove a meal from the database</h2>
-                <div className="edit-meals">
+                <h2>Edit or Remove a user from the database</h2>
+                <div className="edit-users">
                     {
-                        menu.map((meal,index)=>
+                        users.map((user,index)=>
                             <>
-                                <Meal meal={meal} key={index}/>
+                                <User user={user} key={index}/>
                             </>
                         )
                     }
@@ -23,4 +23,4 @@ function EditMeal({menu}){
     );
 }
 
-export default EditMeal;
+export default EditUser;

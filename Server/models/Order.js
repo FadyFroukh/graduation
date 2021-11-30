@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require("../Connection");
 
 const itemSchema = new mongoose.Schema({
     itemName:{
@@ -16,13 +16,13 @@ const itemSchema = new mongoose.Schema({
         required:true,
         trim:true
     },
-    tableID:{
-        type:Number,
+    table:{
+        type:mongoose.ObjectId,
         required:true,
-        trim:true
+        ref:"User",
     }
 })
 
-const NewItem = mongoose.model("NewItem",itemSchema);
+const Order = mongoose.model("Order",itemSchema);
 
-module.exports = NewItem;
+module.exports = Order;

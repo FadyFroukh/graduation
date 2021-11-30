@@ -8,6 +8,7 @@ function AddMeal({menu}){
     const [mealName,setMealName] = useState("");
     const [mealCat,setMealCat] = useState("");
     const [mealPrice,setMealPrice] = useState("");
+    const [mealInfo,setMealInfo] = useState("");
 
     const cats = ["main","desserts","sweets","shishas","drinks"]
 
@@ -20,6 +21,9 @@ function AddMeal({menu}){
     const handleMealPrice = (e)=>{
         setMealPrice(e.target.value);
     }
+    const handleMealInfo = (e)=>{
+        setMealInfo(e.target.value);
+    }
     const handleAddForm = (e)=>{
         e.preventDefault();
         if(mealName.trim() === "" || mealCat.trim() === "" || mealPrice.trim() === ""){
@@ -29,11 +33,12 @@ function AddMeal({menu}){
         }else if (!cats.includes(mealCat)){
             swal({title:"Meal Category Not Availble",text:`Try those: ${cats}`,icon:"error"});
         }else {
-            axios.post("http://localhost:4000/menu",{itemName:mealName,itemCat:mealCat,itemPrice:mealPrice}).then(res=>{
+            axios.post("http://localhost:4000/meals",{itemName:mealName,itemCat:mealCat,itemPrice:mealPrice,itemInfo:mealInfo}).then(res=>{
                 swal({title:"Meal Added Successfully",text:`Meal Added: ${mealName}`,icon:"success"});
                 setMealName("");
                 setMealCat("");
                 setMealPrice("");
+                setMealInfo("");
             }).catch(err=>{
                 swal({title:"Something went wrong..",text:"An error occured while trying to add the meal",icon:"error"});
             })
@@ -57,6 +62,10 @@ function AddMeal({menu}){
                 <div className="form-part">
                     <label htmlFor="meal-price">Meal Price</label>
                     <input type="text" name="meal-price" maxLength="5" value={mealPrice} onChange={handleMealPrice}/>
+                </div>
+                <div className="form-part">
+                    <label htmlFor="meal-info">Meal Information</label>
+                    <input type="text" name="meal-info" maxLength="50" value={mealInfo} onChange={handleMealInfo}/>
                 </div>
                 <div className="form-part submit-part">
                     <button type="submit">Add Meal</button>

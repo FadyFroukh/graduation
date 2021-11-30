@@ -1,46 +1,7 @@
 /* Global */
-
-/* Login Form */
-
-.admin-page-overlay{
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.admin-page-overlay .form-div{
-    display: flex;
-    justify-content: center;
-}
-.form-div .form-part{
-    margin-bottom: 10px;
-}
-.form-div .login-form h3{
+h4 {
     margin-bottom: 20px;
 }
-.form-div .login-form label , .form-div .login-form input {
-    display: block;
-    margin-bottom: 10px;
-}
-.form-div .login-form input{
-    padding: 6px;
-    display: inline-block;
-    width: 300px;
-}
-.form-div .login-form .btn-cont{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.form-div .login-form .btn-cont button{
-    padding: 10px;
-    width: 150px;
-    background-color: #ccc;
-    border-radius:5px;
-    border: 2px solid #aaa;
-}
-
-
 /* IS LOGGED IN */
 .admin-page-header{
     padding: 12px;
@@ -54,19 +15,6 @@
 }
 .admin-page-header p {
     margin-bottom: 0;
-}
-
-.section {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-.section .btn-container {
-    width: 80%;
-}
-
-h4 {
-    margin-bottom: 20px;
 }
 
 /* ADMIN ERROR */

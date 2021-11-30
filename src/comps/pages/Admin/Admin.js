@@ -1,47 +1,77 @@
 import React , {useEffect , useState} from 'react';
 import "../../../css/Admin.css";
+import Button from '../Button';
+import Container from '../../Container';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
-import AdminDatabase from '../../AdminDatabase';
-import AdminControl from '../../AdminControl';
-import AdminForm from '../../AdminForm';
-import {useCookies} from 'react-cookie';
-
 function Admin(){
 
-    const [databaseError,setDatabaseError] = useState(false);
-    const [isLogged,setIsLogged] = useState(false);
-    const [admins,setAdmins] = useState([]);
+    const handleLogOut = ()=>{
+        localStorage.removeItem("user");
+        localStorage.removeItem("isLogin");
+        window.location.href = "/";
+     }
+ 
+     const [user,setUser] = useState({});
+ 
+     useEffect(()=>{
+       var u = localStorage.getItem("user");
+       if (u){
+         setUser(JSON.parse(u));
+       }
+     },[])
 
-    const [cookies] = useCookies(["username","password"]);
+     const [users,setUsers] = useState([]);
 
-
-    useEffect(()=>{
-        axios.get("http://localhost:4000/admins").then(res=>{
-            setAdmins(res.data);
-        }).catch(err=>{
-            setDatabaseError(true);
-        })
-        if(cookies.username !== undefined && cookies.password !== undefined){
-            setIsLogged(!isLogged);
-        }
-    },[])
-
-    const [items,setItems] = useState([]);
-
-    useEffect(()=>[
-        axios.get("http://localhost:4000/items").then(res=>{
-            setItems(res.data);
-        }).catch(err=>{
-            setDatabaseError(true);
-        })
-    ],[])
+     useEffect(()=>{
+         axios.get("http://localhost:4000/tables").then(res=>{
+             setUsers(res.data);
+         }).catch(err=>{
+             console.log("An error occured");
+         })
+     },[users])
+ 
+ 
 
     return (
         <>
-        {
-            databaseError ? <AdminDatabase/> : 
-            isLogged ? <AdminControl items={items}/> : <AdminForm admins={admins} setIsLogged={setIsLogged} isLogged={isLogged}/>
-        }
+            <Container>
+                <header className="admin-page-header">
+                    <p>Admin : {user.name}</p>
+                    <button onClick={handleLogOut}>Log Out</button>
+                    <div className="login-time">Logged in at {new Date().getDate()}</div>
+                </header>
+                <div className="col-lg-4 meals">
+                    <h4 className="text-center">Meals Managment</h4>
+                    <div className="add-meal-btn operation">
+                        <Button btnText="Add a Meal" btnHeight="170px" btnWidth="100%" btnLink="/admin/addmeal"/>
+                    </div>
+                    <div className="remove-meal-btn operation">
+                        <Button btnText="Remove or Edit a Meal" btnHeight="170px" btnWidth="100%" btnLink="/admin/editmeal"/>
+                    </div>
+                </div>
+                <div className="col-lg-4 tables section">
+                    <h4 className="text-center">Today's Tables</h4>
+                    {
+                        users.map((user,index)=><>
+                        <div className="add-meal-btn operation table" key={index}>
+                            <Button btnWidth="100%" btnText={user.name} btnLink={`waiter/${user._id}`} btnHeight="170px"/>
+                        </div>
+                        </>
+                        )
+                    }
+
+                </div>
+            <div className="col-lg-4 users section">
+                <h4 className="text-center">Users Managment</h4>
+                <div className="add-meal-btn operation">
+                    <Button btnText="Add a User" btnHeight="170px" btnWidth="100%" btnLink="/admin/adduser"/>
+                </div>
+                <div className="remove-meal-btn operation">
+                    <Button btnText="Remove or Edit a User" btnHeight="170px" btnWidth="100%" btnLink="/admin/edituser"/>
+                </div>
+            </div>
+            </Container>
         </>
     );
 

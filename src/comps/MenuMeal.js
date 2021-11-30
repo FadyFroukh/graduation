@@ -17,7 +17,7 @@ function MenuMeal({match}){
     const [error,setError] = useState(false);
 
     useEffect(()=>{
-        axios.get("http://localhost:3001/menu").then(res=>{
+        axios.get("http://localhost:4000/meals").then(res=>{
 
             setMainMeals(res.data.filter(meal=>meal.itemCat==="main"));
             setDesserts(res.data.filter(meal=>meal.itemCat==="desserts"));

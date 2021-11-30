@@ -1,0 +1,13 @@
+.user{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    font-size: 20px;
+}
+.user p {
+    margin:0;
+}
+.user:nth-child(even){
+    background-color: #eee;
+}

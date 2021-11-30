@@ -1,8 +1,10 @@
 const express = require("express");
 const mongo = require("mongodb");
 const cors = require("cors");
-const NewMeal = require("./models/NewMeal");
-const NewItem = require("./models/NewItem");
+
+const Meal = require("./models/Meal");
+const Order = require("./models/Order");
+const User = require("./models/User");
 
 const mongoClient = mongo.MongoClient;
 const ObjectId = mongo.ObjectId;
@@ -21,48 +23,104 @@ app.use(cors({
 app.get("/",(req,res)=>{
   res.json({
     "Welcome":"Welcome to the Restaurent API",
-    "Pages Avaliable":{
-      "Admin":"/admins",
-      "Menu":"/menu",
-      "Items":"/items"
-    }
   })
 })
 
-app.get("/admins",(req,res)=>{
-    // res.header("Access-Control-Allow-Origin","http://localhost:3000")
-    mongoClient.connect(url, function(err, db) {
+// Login Endpoint
+
+app.post("/login",(req,res)=>{
+  // res.header("Access-Control-Allow-Origin","http://localhost:3000")
+  mongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("graduation");
+      dbo.collection("users").find({name:req.body.name , password:req.body.password}).toArray(function(err, result) {
         if (err) throw err;
-        var dbo = db.db("graduation");
-        dbo.collection("admins").find({}).toArray(function(err, result) {
-          if (err) throw err;
-          res.send(result)
-          db.close();
-        });
-      }); 
+        console.log(result);
+        res.send(result);
+        db.close();
+      });
+    }); 
 })
 
+//Users Endpoints
 
-app.get("/menu",(req,res)=>{
+app.get("/users",(req,res)=>{
+  mongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("graduation");
+    dbo.collection("users").find({}).toArray(function(err, result) {
+      if (err) throw err;
+      res.send(result)
+      db.close();
+    });
+  }); 
+});
+
+app.post("/users",(req,res)=>{ 
+    const user = new User({
+      name:req.body.username,
+      password:req.body.password,
+      rule:req.body.rule,
+      orders:[]
+    });
+
+    mongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("graduation");
+      dbo.collection("users").insertOne(user,function(err, result) {
+        if (err) throw err;
+        res.send(result)
+        db.close();
+      });
+    });
+  
+})
+
+app.delete("/users/:id", async (req,res)=>{
+  const user = await User.findById(req.params.id);
+  await User.deleteOne(ObjectId(user.id));
+})
+
+//Tables Endpoints
+
+app.get("/tables",(req,res)=>{
+  mongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("graduation");
+    dbo.collection("users").find({rule:0}).toArray(function(err, result) {
+      if (err) throw err;
+      res.send(result)
+      db.close();
+    });
+  }); 
+});
+
+app.get("/tables/:id",async (req,res)=>{
+  
+  var table = await User.findById(req.params.id).populate("orders"); 
+  res.send(table);
+
+});
+
+//Meals Endpoints
+
+app.get("/meals",async (req,res)=>{
     // res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-    mongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        var dbo = db.db("graduation");
-        dbo.collection("menu").find({}).toArray(function(err, result) {
-          if (err) throw err;
-          res.send(result)
-          db.close();
-        });
-      }); 
+
+    var meals = await Meal.find({});
+    res.send(meals)
+
+   
 })
 
-app.post("/menu",(req,res)=>{
+app.post("/meals",(req,res)=>{
 
-  const meal = NewMeal(
+  const meal = Meal(
     {
       itemName:req.body.itemName,
       itemCat:req.body.itemCat,
-      itemPrice:req.body.itemPrice
+      itemPrice:req.body.itemPrice,
+      itemInfo:req.body.itemInfo
     }
   )
   console.log(meal);
@@ -70,7 +128,7 @@ app.post("/menu",(req,res)=>{
   mongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("graduation");
-    dbo.collection("menu").insertOne(meal,function(err, result) {
+    dbo.collection("meals").insertOne(meal,function(err, result) {
       if (err) throw err;
       res.send(result)
       db.close();
@@ -79,12 +137,18 @@ app.post("/menu",(req,res)=>{
 
 })
 
-app.get("/items",(req,res)=>{
+app.delete("/meals/:id", async (req,res)=>{
+  const meal = await Meal.findById(req.params.id);
+  await Meal.deleteOne(ObjectId(meal.id));
+})
+//Orders Endpoints
+
+app.get("/orders",(req,res)=>{
 
     mongoClient.connect(url, function(err, db) {
       if (err) throw err;
       var dbo = db.db("graduation");
-      dbo.collection("items").find({}).toArray(function(err, result) {
+      dbo.collection("orders").find({}).toArray(function(err, result) {
         if (err) throw err;
         res.send(result)
         db.close();
@@ -93,73 +157,37 @@ app.get("/items",(req,res)=>{
 
 })
 
-app.post("/items",(req,res)=>{
+app.post("/orders",async (req,res)=>{
 
-  const item = NewItem({
+  const item = new Order({
     itemName:req.body.itemName,
     itemPrice:req.body.itemPrice,
     addedAt:req.body.addedAt,
-    tableID:req.body.tableID
-  })
-
-  mongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db("graduation");
-    dbo.collection("items").insertOne(item,function(err, result) {
-      if (err) throw err;
-      res.send(result)
-      db.close();
-    });
+    table:ObjectId(req.body.table)
   });
 
-})
+  await item.save();
 
-app.delete("/items",(req,res)=>{
 
-  const id = req.body.id;
-
-  mongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db("graduation");
-    dbo.collection("items").deleteOne({"_id" : ObjectId(id)}, function(err, obj) {
-      if (err) throw err;
-      console.log("1 document deleted");
-      db.close();
-    });
-  }); 
-  
-})
-
-app.get("/tables",(req,res)=>{
-
-  mongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db("graduation");
-    dbo.collection("tables").find({}).toArray(function(err, result) {
-      if (err) throw err;
-      res.send(result)
-      db.close();
-    });
-  }); 
+   const  user = await User.findById(req.body.table);
+   user.orders.push(ObjectId(item._id));
+  await  user.save();
+   res.send(item);
 
 })
 
-app.post("/tables",(req,res)=>{
-
-  const table = req.body.table;
-
-  mongoClient.connect(url,function(err,db){
-    if(err) throw err;
-    var dbo = db.db("graduation");
-    dbo.collection("tables").insertOne(table,function(err,result){
-      if(err) throw err;
-      res.send(result);
-      db.close();
-    })
-  })
-
+app.delete("/orders/:id", async (req,res)=>{
+    const order = await Order.findById(req.params.id);
+    const user = await User.findById(order.table);
+    var index = user.orders.findIndex(a => a == order.id);
+    user.orders.splice(index, 1);
+    await user.save();
+    await Order.deleteOne(ObjectId(order.id));
+    console.log(index);
+    res.send({"ok": "ok"});
 })
 
+//Listening for the port
 
 app.listen(port,()=>{
     console.log(`Listening on port : ${port}`);

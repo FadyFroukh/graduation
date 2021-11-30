@@ -1,0 +1,66 @@
+a{
+    text-decoration: none;
+    color: #000;
+}
+.waiter-page-overlay{
+    height: 100vh;
+    margin-top: 25px;
+}
+.waiter-page-overlay h2 {
+    margin-bottom: 25px;
+}
+
+.table{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.table .content{
+    width: 400px;
+    height: 200px;
+    background-color: #eee;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    cursor: pointer;
+}
+.table .content .table-name{
+    font-weight: bold;
+    font-size: 22px;
+}
+
+/* Singular Table Code */
+.table-orders-overlay{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.table-orders-overlay .table-orders{
+    width: 400px;
+    height: 400px;
+    overflow-y: scroll;
+    padding: 12px;
+    border-radius: 12px;
+}
+.table-orders .order{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    height: 60px;
+    padding: 6px;
+    margin-bottom: 10px;
+}
+.table-orders .order .order-ops{
+    cursor: pointer;
+}
+.table-orders .order p {
+    margin: 0;
+}
+.table-orders .order:nth-child(even){
+    background-color: #eee;
+}

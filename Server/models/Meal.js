@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require("../Connection");
 
 const mealSchema = new mongoose.Schema(
     {
@@ -17,10 +17,15 @@ const mealSchema = new mongoose.Schema(
             type:Number,
             required:true,
             trim:true
+        },
+        itemInfo:{
+            type:String,
+            required:true,
+            trim:true
         }
     }
 )
 
-const NewMeal = mongoose.model("NewMeal",mealSchema);
+const Meal = mongoose.model("Meal",mealSchema);
 
-module.exports = NewMeal;
+module.exports = Meal;

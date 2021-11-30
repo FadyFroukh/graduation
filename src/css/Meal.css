@@ -1,0 +1,13 @@
+.meal{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    font-size: 20px;
+}
+.meal p {
+    margin:0;
+}
+.meal:nth-child(even){
+    background-color: #eee;
+}
