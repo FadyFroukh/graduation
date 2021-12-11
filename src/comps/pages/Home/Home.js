@@ -2,6 +2,8 @@ import React , {useState , useEffect} from 'react';
 import Container from '../../Container';
 import axios from "axios";
 import "../../../css/Home.css";
+import swal from 'sweetalert';
+
 function Home(){
 
     const [username,setUsername] = useState("");
@@ -26,7 +28,7 @@ function Home(){
                 localStorage.setItem("isLogin",true);
             }
         }).catch(err=>{
-            console.log("An Error Occurred");
+            swal({title:"Something went wrong..",text:"An error occured while trying login to to the system",icon:"error"});
         })
     }
 

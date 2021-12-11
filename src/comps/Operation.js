@@ -24,7 +24,7 @@ function Operation({match}){
         }).catch(err=>{
             setDatabaseError(true);
         })
-    },[menu,users])
+    },[menu])
 
     if(databaseError){
         return(

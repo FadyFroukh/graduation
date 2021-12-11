@@ -114,6 +114,9 @@ function Table(){
                     <div className="col-lg-8 order-btn">
                         <Button btnText="Order Meals" btnWidth="250px" btnHeight="80px" btnLink="/menu"/>
                     </div>
+                    <div className="col-lg-4 play-btn">
+                        <Button btnText="Play a Game" btnWidth="250px" btnHeight="80px" btnLink="/game"/>
+                    </div>
                 </Container>
             </main>
             </IconContext.Provider>

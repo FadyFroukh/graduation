@@ -26,9 +26,28 @@ a{
     padding: 12px;
     cursor: pointer;
 }
+.waiter-page-overlay .row{
+    justify-content: center;
+}
 .table .content .table-name{
     font-weight: bold;
     font-size: 22px;
+}
+
+.table-status{
+    display: flex;
+    justify-content: space-around;
+}
+
+.table-status p {
+    font-weight: bold;
+}
+
+.table-status .ready{
+    color: #080;
+}
+.table-status .not-ready{
+    color: rgb(216, 6, 6);
 }
 
 /* Singular Table Code */
@@ -63,4 +82,13 @@ a{
 }
 .table-orders .order:nth-child(even){
     background-color: #eee;
+}
+.table-orders-overlay .total{
+    display: flex;
+    justify-content: space-around;
+    width: 400px;
+}
+.table-orders-overlay .total > p{
+    font-weight: bold;
+    font-size: 20px;
 }

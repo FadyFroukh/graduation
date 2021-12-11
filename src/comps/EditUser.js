@@ -13,7 +13,7 @@ function EditUser({users}){
                     {
                         users.map((user,index)=>
                             <>
-                                <User user={user} key={index}/>
+                                <User user={user}/>
                             </>
                         )
                     }

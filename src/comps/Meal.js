@@ -4,7 +4,7 @@ import "../css/Meal.css";
 import axios from 'axios';
 import swal from 'sweetalert';
 
-function Meal({meal}){
+function Meal({meal,showMenu,setShowMenu}){
 
     const handleDelete = ()=>{
         axios.delete("http://localhost:4000/meals/" + meal._id).then(res=>{
@@ -14,6 +14,10 @@ function Meal({meal}){
         })
     }
 
+    const handleEditMenu = ()=>{
+        setShowMenu(!showMenu)
+    }
+    
     return (
         <>
             <div className="meal">
@@ -22,7 +26,7 @@ function Meal({meal}){
                 </div>
                 <div className="meal-icons">
                     <FaTrash style={{marginRight:"6px", color:"#EA2027"}} onClick={handleDelete}/>
-                    <FaEdit style={{color:"#009432"}}/>
+                    <FaEdit style={{color:"#009432"}} onClick={handleEditMenu}/>
                 </div>
             </div>
         </>

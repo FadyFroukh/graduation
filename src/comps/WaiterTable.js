@@ -5,6 +5,7 @@ import Order from './Order';
 function WaiterTable({match}){
 
     const [user,setUser] = useState({});
+    const [total,setTotal] = useState(0);
 
     useEffect(()=>{
         axios.get(`http://localhost:4000/tables/${match.params.id}`).then(res=>{
@@ -12,8 +13,8 @@ function WaiterTable({match}){
         }).catch(err=>{ 
             console.log(err);
         })
-
     },[user])
+
 
     return(
         <>
@@ -28,6 +29,10 @@ function WaiterTable({match}){
                         </>
                     )
                }
+               </div>
+               <div className="total">
+                    <p>Total</p>
+                    <p>{total}</p>
                </div>
             </div>
         </>

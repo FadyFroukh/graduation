@@ -1,8 +1,11 @@
-import React from 'react';
+import React , {useState} from 'react';
+import EditMealMenu from './EditMealMenu';
 import Meal from './Meal';
 import Button from './pages/Button';
 
 function EditMeal({menu}){
+
+    const [showMenu,setShowMenu] = useState(false);
 
     return(
         <>
@@ -13,11 +16,14 @@ function EditMeal({menu}){
                     {
                         menu.map((meal,index)=>
                             <>
-                                <Meal meal={meal} key={index}/>
+                                <Meal meal={meal} key={index} showMenu={showMenu} setShowMenu={setShowMenu}/>
                             </>
                         )
                     }
                 </div>
+                {
+                showMenu ? <EditMealMenu showMenu={showMenu} setShowMenu={setShowMenu}/> : null
+                }
             </main>
         </>
     );

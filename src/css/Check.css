@@ -85,3 +85,15 @@
     background-color: royalblue;
     width: 200px;
 }
+
+.button-header{
+    display: flex;
+    justify-content: center;
+}
+.button-header .ready-button{
+    width: 150px;
+    height: 50px;
+    border: 1px solid;
+    border-radius: 12px;
+    font-weight: bold;
+}

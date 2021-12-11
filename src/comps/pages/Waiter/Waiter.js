@@ -20,17 +20,31 @@ function Waiter(){
             <main className="waiter-page-overlay">
                 <h2 className="text-center">Today's Tables</h2>
                 <Container>
-                    {
-                        users.map((user,index)=>
-                        <div className="col-lg-4 table" key={index}>
-                            <Link to={`waiter/${user._id}`}>
-                                <div className="content">
-                                    <p className="table-name">{user.name}</p>
-                                </div>
-                            </Link>
-                        </div>
-                        )
-                    }
+                    <div className="col-lg-4">
+                        {
+                            users.map((user,index)=>
+                                <div key={index} className="table-status">
+                                    <p>{user.name} </p>
+                                    {
+                                        user.status ? <p className="ready">Ready</p> : <p className="not-ready">Not Ready</p>
+                                    }
+                                </div> 
+                            )
+                        }
+                    </div>
+                </Container>
+                <Container>
+                {
+                    users.map((user,index)=>
+                    <div className="col-lg-4 table" key={index}>
+                        <Link to={`waiter/${user._id}`}>
+                            <div className="content">
+                                <p className="table-name">{user.name}</p>
+                            </div>
+                        </Link>
+                    </div>
+                    )
+                }
                 </Container>
             </main>
         </>

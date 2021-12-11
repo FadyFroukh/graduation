@@ -10,7 +10,7 @@ const mongoClient = mongo.MongoClient;
 const ObjectId = mongo.ObjectId;
 const app = express();
 const port = 4000 || process.env.PORT;
-const url = "mongodb://localhost:27017/";
+const url = "mongodb+srv://Fadi:12345@graduation.aovk2.mongodb.net/graduation?retryWrites=true&w=majority";
 
 
 app.use(express.urlencoded({extended: true}));
@@ -29,18 +29,19 @@ app.get("/",(req,res)=>{
 // Login Endpoint
 
 app.post("/login",(req,res)=>{
-  // res.header("Access-Control-Allow-Origin","http://localhost:3000")
   mongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("graduation");
+    dbo.collection("users").find({name:req.body.name , password:req.body.password}).toArray(function(err, result) {
       if (err) throw err;
-      var dbo = db.db("graduation");
-      dbo.collection("users").find({name:req.body.name , password:req.body.password}).toArray(function(err, result) {
-        if (err) throw err;
-        console.log(result);
-        res.send(result);
-        db.close();
-      });
-    }); 
+      console.log(result);
+      res.send(result);
+      db.close();
+    });
+  }); 
 })
+
+
 
 //Users Endpoints
 
@@ -61,6 +62,7 @@ app.post("/users",(req,res)=>{
       name:req.body.username,
       password:req.body.password,
       rule:req.body.rule,
+      status:req.body.status,
       orders:[]
     });
 
@@ -102,6 +104,10 @@ app.get("/tables/:id",async (req,res)=>{
 
 });
 
+app.put("/tables", async (req,res)=>{
+  var user = await User.findByIdAndUpdate(ObjectId(req.body.id),{status:!req.body.status});
+})
+
 //Meals Endpoints
 
 app.get("/meals",async (req,res)=>{
@@ -136,6 +142,7 @@ app.post("/meals",(req,res)=>{
   });
 
 })
+
 
 app.delete("/meals/:id", async (req,res)=>{
   const meal = await Meal.findById(req.params.id);

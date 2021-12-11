@@ -17,6 +17,24 @@ h4 {
     margin-bottom: 0;
 }
 
+.admin-table{
+    background-color: #aaa;
+    width: 100%;
+    height: 170px;
+    margin-bottom: 18px;
+    border-radius: 12px;
+    overflow-y: scroll;
+}
+.admin-table .orders-body{
+    display: flex;
+    flex-direction: column;
+}
+.admin-table .orders-body .orders-header{
+    width: 100%;
+    font-size: 17px;
+    font-weight: bold;
+}
+
 /* ADMIN ERROR */
 
 .admin-error{

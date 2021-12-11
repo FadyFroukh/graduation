@@ -2,8 +2,8 @@ import React , {useEffect , useState} from 'react';
 import "../../../css/Admin.css";
 import Button from '../Button';
 import Container from '../../Container';
-import {Link} from 'react-router-dom';
 import axios from 'axios';
+import AdminTable from '../../AdminTable';
 function Admin(){
 
     const handleLogOut = ()=>{
@@ -31,7 +31,6 @@ function Admin(){
          })
      },[users])
  
- 
 
     return (
         <>
@@ -52,15 +51,7 @@ function Admin(){
                 </div>
                 <div className="col-lg-4 tables section">
                     <h4 className="text-center">Today's Tables</h4>
-                    {
-                        users.map((user,index)=><>
-                        <div className="add-meal-btn operation table" key={index}>
-                            <Button btnWidth="100%" btnText={user.name} btnLink={`waiter/${user._id}`} btnHeight="170px"/>
-                        </div>
-                        </>
-                        )
-                    }
-
+                   
                 </div>
             <div className="col-lg-4 users section">
                 <h4 className="text-center">Users Managment</h4>

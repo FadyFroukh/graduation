@@ -1,0 +1,26 @@
+.app-game {
+    display: flex;
+    padding: 30px;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .game {
+    width: 560px;
+    height: 560px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .game img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .back{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+  }

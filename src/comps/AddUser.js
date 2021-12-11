@@ -19,7 +19,7 @@ function AddUser(){
             swal({title:"Wrong Rule Type",text:`Check your rule , rules available ${rules}`,icon:"error"});
         }
         else {
-            axios.post("http://localhost:4000/users",{username,password,rule}).then(res=>{
+            axios.post("http://localhost:4000/users",{username,password,rule,status:false}).then(res=>{
                 swal({title:"User Added Successfully", text:`New User ${username} added to the database` , icon:"success"});
                 setUsername("");
                 setPassword("");

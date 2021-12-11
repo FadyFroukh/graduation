@@ -16,6 +16,11 @@ const userSchema = new mongoose.Schema({
         required:true
     },
 
+    status:{
+      type:Boolean,
+      required:true  
+    },
+
      orders:{
          type: [{
              type: mongoose.ObjectId,

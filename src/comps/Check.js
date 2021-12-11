@@ -10,18 +10,38 @@ function Check(){
     const [click,setClick] = useState(false);
     const [orders,setOrders] = useState([]);
     const [total,setTotal] = useState(0);
+    const [status,setStatus] = useState();
+    const [user,setUser] = useState([]);
     
     useEffect(()=>{
         axios.get("http://localhost:4000/tables/" + JSON.parse(localStorage.getItem("user"))._id).then(res=>{
             setOrders(res.data.orders);
+            setUser(res.data);
+            setStatus(res.data.status);
         }).catch(err=>{
             console.log("An error occured");
         })
 
     },[orders])
 
+    useEffect(()=>{
+        orders.forEach(order=>setTotal(total=>total+=order.itemPrice));
+        console.log(total);
+    },[])
+
     const handleExit = ()=>{
         setClick(!click)
+    }
+
+    const handleStatus = ()=>{
+        setStatus(!status);
+
+        axios.put("http://localhost:4000/tables",{id:JSON.parse(localStorage.getItem("user"))._id , status:user.status}).then(res=>{
+            console.log(res.data);
+        }).catch(err=>{
+            console.log("Error Updating Status");
+        })
+
     }
 
     return(
@@ -34,6 +54,13 @@ function Check(){
                         <div className="check-header col-lg-12">
                             <h3 className="text-center">Smart Menu Check</h3>
                             <FaTimes onClick={handleExit}/>
+                        </div>
+                        <div className="col-lg-12 button-header">
+                            <button className="ready-button" onClick={handleStatus}>
+                                {
+                                    status ? "Not Ready" : "Ready" 
+                                }
+                            </button>
                         </div>
                         <div className="col-lg-12 check-div">
                             {

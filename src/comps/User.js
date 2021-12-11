@@ -1,7 +1,6 @@
 import React from 'react';
 import {FaTrash,FaEdit} from 'react-icons/fa';
 import axios from 'axios';
-import swal from 'sweetalert';
 import "../css/User.css";
 
 function User({user}){
