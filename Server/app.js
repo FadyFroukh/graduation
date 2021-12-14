@@ -111,7 +111,6 @@ app.put("/tables", async (req,res)=>{
 //Meals Endpoints
 
 app.get("/meals",async (req,res)=>{
-    // res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
 
     var meals = await Meal.find({});
     res.send(meals)
