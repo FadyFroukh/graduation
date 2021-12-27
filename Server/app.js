@@ -42,7 +42,6 @@ app.post("/login",(req,res)=>{
 })
 
 
-
 //Users Endpoints
 
 app.get("/users",(req,res)=>{
@@ -56,7 +55,6 @@ app.get("/users",(req,res)=>{
     });
   }); 
 });
-
 app.post("/users",(req,res)=>{ 
     const user = new User({
       name:req.body.username,
