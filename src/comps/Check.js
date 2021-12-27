@@ -22,12 +22,7 @@ function Check(){
             console.log("An error occured");
         })
 
-    },[orders])
-
-    useEffect(()=>{
-        orders.forEach(order=>setTotal(total=>total+=order.itemPrice));
-        console.log(total);
-    },[])
+    },[orders]);
 
     const handleExit = ()=>{
         setClick(!click)
@@ -65,7 +60,7 @@ function Check(){
                         <div className="col-lg-12 check-div">
                             {
                                 orders.map((order,index)=>
-                                    <CheckItem key={index} order={order}/>
+                                    <CheckItem key={index} order={order} total={total} setTotal={setTotal}/>
                                 )
                             }
                             <div className="total">

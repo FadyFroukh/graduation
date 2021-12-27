@@ -15,11 +15,13 @@ function Menu(){
     const [shishas,setShishas] = useState([]);
 
     const [error,setError] = useState(false);
-
     const [click,setClick] = useState(false);
 
-    useEffect(()=>{
+    const handleClick = ()=>{
+        setClick(!click);
+    }
 
+    useEffect(()=>{
         axios.get("http://localhost:4000/meals").then(res=>{
             setMainMeals(res.data.filter(meal=>meal.itemCat==="main"));
             setDesserts(res.data.filter(meal=>meal.itemCat==="desserts"));
@@ -32,11 +34,6 @@ function Menu(){
             setError(true);
         })
     },[])
-
-
-    const handleClick = ()=>{
-        setClick(!click);
-    }
 
     return(
         <div className="menu">
@@ -63,7 +60,7 @@ function Menu(){
                         <MenuSection heading="Sweets" meals={sweets} divClass="col-lg-6" isAdmin={false}/>
                         <MenuSection heading="Shishas" meals={shishas} divClass="col-lg-6" isAdmin={false}/>
                     </Container>
-                    { click ?  <Check/> : null}
+                    {click ? <Check/> : null}
                  </>
             }
         </div>

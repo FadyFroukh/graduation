@@ -15,10 +15,19 @@ function Waiter(){
         })
     },[users])
 
+    const handleLogout = ()=>{
+        localStorage.removeItem("user");
+        localStorage.removeItem("isLogin");
+        window.location.href = "/";        
+    }
+
     return(
         <>
             <main className="waiter-page-overlay">
-                <h2 className="text-center">Today's Tables</h2>
+                <header>
+                    <h2 className="text-center">Available Tables</h2>
+                    <button onClick={handleLogout}>Logout</button>
+                </header>
                 <Container>
                     <div className="col-lg-4">
                         {

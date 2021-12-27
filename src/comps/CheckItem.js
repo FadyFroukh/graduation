@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {FaTrash} from 'react-icons/fa';
 import axios from 'axios';
 
-function CheckItem({order}){
+function CheckItem({order,total,setTotal}){
 
     const handleDelete = ()=>{
         axios.delete("http://localhost:4000/orders/" + order._id).then(res=>{
         }).catch(err=>{
-            console.log("Not correct");
+            console.log("An error occured");
         })
     }
+
+    useEffect(()=>{
+        setTotal((total)=>total+order.itemPrice);
+    },[])
 
     return(
         <div className="check-item">

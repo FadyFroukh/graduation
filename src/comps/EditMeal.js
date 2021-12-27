@@ -6,6 +6,7 @@ import Button from './pages/Button';
 function EditMeal({menu}){
 
     const [showMenu,setShowMenu] = useState(false);
+    const [id,setId] = useState("");
 
     return(
         <>
@@ -15,14 +16,14 @@ function EditMeal({menu}){
                 <div className="edit-meals">
                     {
                         menu.map((meal,index)=>
-                            <>
-                                <Meal meal={meal} key={index} showMenu={showMenu} setShowMenu={setShowMenu}/>
-                            </>
+                            <div key={index}>
+                                <Meal meal={meal} showMenu={showMenu} setShowMenu={setShowMenu} setId={setId}/>
+                            </div>
                         )
                     }
                 </div>
                 {
-                showMenu ? <EditMealMenu showMenu={showMenu} setShowMenu={setShowMenu}/> : null
+                showMenu ? <EditMealMenu showMenu={showMenu} setShowMenu={setShowMenu} id={id}/> : null
                 }
             </main>
         </>

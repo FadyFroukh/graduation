@@ -22,6 +22,9 @@ function Admin(){
      },[])
 
      const [users,setUsers] = useState([]);
+     const [year,setYear] = useState("");
+     const [month,setMonth] = useState("");
+     const [day,setDay] = useState("");
 
      useEffect(()=>{
          axios.get("http://localhost:4000/tables").then(res=>{
@@ -29,6 +32,9 @@ function Admin(){
          }).catch(err=>{
              console.log("An error occured");
          })
+         setYear(new Date().getFullYear());
+         setMonth(new Date().getMonth() + 1);
+         setDay(new Date().getDate())
      },[users])
  
 
@@ -38,8 +44,9 @@ function Admin(){
                 <header className="admin-page-header">
                     <p>Admin : {user.name}</p>
                     <button onClick={handleLogOut}>Log Out</button>
-                    <div className="login-time">Logged in at {new Date().getDate()}</div>
+                    <div className="login-time">Logged in at <span>{year}</span>/ {month} / {day}</div>
                 </header>
+
                 <div className="col-lg-4 meals">
                     <h4 className="text-center">Meals Managment</h4>
                     <div className="add-meal-btn operation">
@@ -49,11 +56,17 @@ function Admin(){
                         <Button btnText="Remove or Edit a Meal" btnHeight="170px" btnWidth="100%" btnLink="/admin/editmeal"/>
                     </div>
                 </div>
-                <div className="col-lg-4 tables section">
+                <div className="col-lg-4 tables">
                     <h4 className="text-center">Today's Tables</h4>
-                   
+                    {
+                        users.map((user,index)=>
+                            <div className="admin-table" key={index}>
+                                <AdminTable user={user}/>
+                            </div>
+                        )
+                    }
                 </div>
-            <div className="col-lg-4 users section">
+            <div className="col-lg-4 users">
                 <h4 className="text-center">Users Managment</h4>
                 <div className="add-meal-btn operation">
                     <Button btnText="Add a User" btnHeight="170px" btnWidth="100%" btnLink="/admin/adduser"/>

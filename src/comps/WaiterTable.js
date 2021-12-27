@@ -15,7 +15,6 @@ function WaiterTable({match}){
         })
     },[user])
 
-
     return(
         <>
             <div className="table-orders-overlay">
@@ -23,10 +22,11 @@ function WaiterTable({match}){
                 <h2>{user.name}</h2>
                <div className="table-orders">
                {
-                   user?.orders?.map((order,index)=>
-                        <>
-                           <Order order={order} key={index} tableName={user.name}/>
-                        </>
+                  
+                    user?.orders?.map((order,index)=>
+                    <>
+                    <Order order={order} key={index} tableName={user.name} total={total} setTotal={setTotal}/>
+                    </>
                     )
                }
                </div>
@@ -40,3 +40,4 @@ function WaiterTable({match}){
 }
 
 export default WaiterTable;
+

@@ -4,7 +4,7 @@ import "../css/Meal.css";
 import axios from 'axios';
 import swal from 'sweetalert';
 
-function Meal({meal,showMenu,setShowMenu}){
+function Meal({meal,showMenu,setShowMenu,setId}){
 
     const handleDelete = ()=>{
         axios.delete("http://localhost:4000/meals/" + meal._id).then(res=>{
@@ -15,7 +15,8 @@ function Meal({meal,showMenu,setShowMenu}){
     }
 
     const handleEditMenu = ()=>{
-        setShowMenu(!showMenu)
+        setShowMenu(!showMenu);
+        setId(meal._id);
     }
     
     return (

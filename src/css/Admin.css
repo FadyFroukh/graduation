@@ -16,6 +16,15 @@ h4 {
 .admin-page-header p {
     margin-bottom: 0;
 }
+.admin-page-header button{
+    padding: 10px;
+    width: 150px;
+    height: 50px;
+    background-color: #eee;
+    border: 3px solid #ccc;
+    border-radius: 10px;
+    font-weight: bold;
+}
 
 .admin-table{
     background-color: #aaa;
@@ -24,16 +33,16 @@ h4 {
     margin-bottom: 18px;
     border-radius: 12px;
     overflow-y: scroll;
-}
-.admin-table .orders-body{
-    display: flex;
-    flex-direction: column;
-}
-.admin-table .orders-body .orders-header{
-    width: 100%;
-    font-size: 17px;
     font-weight: bold;
 }
+.admin-table .orders-body header{
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+.admin-table .orders-body .orders{
+    text-align: center;
+}
+
 
 /* ADMIN ERROR */
 

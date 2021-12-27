@@ -6,8 +6,18 @@ a{
     height: 100vh;
     margin-top: 25px;
 }
-.waiter-page-overlay h2 {
+.waiter-page-overlay header {
     margin-bottom: 25px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.waiter-page-overlay header button{
+    width: 130px;
+    font-weight: bold;
+    border: 2px solid #ccc;
+    background-color: #aaa;
+    border-radius: 10px;
 }
 
 .table{

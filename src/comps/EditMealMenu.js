@@ -1,7 +1,9 @@
 import React , {useState} from 'react';
 import ExitHeader from './ExitHeader';
+import axios from 'axios';
+import swal from 'sweetalert';
 
-function EditMealMenu({showMenu,setShowMenu}){
+function EditMealMenu({showMenu,setShowMenu,id}){
 
     const [mealName,setMealName] = useState("");
     const [mealCat,setMealCat] = useState("");
@@ -25,8 +27,32 @@ function EditMealMenu({showMenu,setShowMenu}){
         setMealInfo(e.target.value);
     }
 
+    const cats = ["main","desserts","sweets","shishas","drinks"]
+
+
     const handleSubmit = (e)=>{
         e.preventDefault();
+
+        if(mealName === "" || mealCat === "" || mealPrice === "" || mealInfo === "" ){
+            swal({title:"Empty Fields",text:"Check every input field and try again",icon:"error"});
+        }else if (!cats.includes(mealCat)){
+            swal({title:"Meal Category Not Availble",text:`Try those: ${cats}`,icon:"error"});
+        }
+        else{
+            axios.put("http://localhost:4000/meals",{
+                id,
+                mealName,
+                mealCat,
+                mealPrice,
+                mealInfo
+            }).then(res=>{
+    
+            }).catch(()=>{
+                console.log("An error occured");
+            })
+    
+            setShowMenu(!showMenu);
+        }
     }
 
     return(
@@ -51,8 +77,8 @@ function EditMealMenu({showMenu,setShowMenu}){
                         <label htmlFor="meal-info">Meal Information</label>
                         <input type="text" name="meal-info" maxLength="50" value={mealInfo} onChange={handleMealInfo}/>
                     </div>
-                        <div className="form-part submit-part">
-                            <button type="submit">Add Meal</button>
+                    <div className="form-part submit-part">
+                        <button type="submit">Edit Meal</button>
                     </div>
 
                 </form>

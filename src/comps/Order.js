@@ -2,19 +2,18 @@ import React, { useEffect } from 'react';
 import "../css/Order.css";
 import {FaTrash} from 'react-icons/fa';
 import axios from 'axios';
-function Order({order}){
+function Order({order,total,setTotal}){
 
     const handleDelete = ()=>{
         axios.delete("http://localhost:4000/orders/" + order._id).then(res=>{
         }).catch(err=>{
-            console.log("Not correct");
+            console.log("An error occured");
         })
     }
 
-
     useEffect(()=>{
-
-    },[order])
+        setTotal((total)=>total+order.itemPrice);
+    },[])
 
     return(
         <>

@@ -1,8 +1,13 @@
-import React from 'react';
+import React , {useState} from 'react';
 import User from './User';
 import Button from './pages/Button';
+import EditUserMenu from './EditUserMenu';
 
 function EditUser({users}){
+
+    const [showMenu,setShowMenu] = useState(false);
+    const [id,setId] = useState("");
+
 
     return(
         <>
@@ -12,12 +17,15 @@ function EditUser({users}){
                 <div className="edit-users">
                     {
                         users.map((user,index)=>
-                            <>
-                                <User user={user}/>
-                            </>
+                            <div key={index}>
+                                <User user={user} showMenu={showMenu} setShowMenu={setShowMenu} setId={setId}/>
+                            </div>
                         )
                     }
                 </div>
+                {
+                    showMenu ? <EditUserMenu showMenu={showMenu} setShowMenu={setShowMenu} id={id}/> : null
+                }
             </main>
         </>
     );
