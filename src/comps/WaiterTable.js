@@ -24,9 +24,9 @@ function WaiterTable({match}){
                {
                   
                     user?.orders?.map((order,index)=>
-                    <>
+                    <div key={index} className='o'>
                     <Order order={order} key={index} tableName={user.name} total={total} setTotal={setTotal}/>
-                    </>
+                    </div>
                     )
                }
                </div>

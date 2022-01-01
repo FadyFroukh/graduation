@@ -10,6 +10,7 @@ function MealComps({ingdsClick,setIngdsClick,mealId}){
     const [addedIngds,setAddedIngds] = useState([]);
     const [mealName,setMealName] = useState("");
     const [mealPrice,setMealPrice] = useState(0);
+    const [counter,setCounter] = useState(1);
 
     useEffect(()=>{
         axios.get("http://localhost:4000/meals/" + mealId).then(res=>{
@@ -26,6 +27,11 @@ function MealComps({ingdsClick,setIngdsClick,mealId}){
         setIngdsClick(!ingdsClick);
     }
 
+    const handleCounter = (e)=>{
+        setCounter(e.target.value);
+        console.log(counter);
+    }
+
     const handleAddToCheck = ()=>{
         axios.post("http://localhost:4000/orders",{
             itemName:mealName,
@@ -40,6 +46,16 @@ function MealComps({ingdsClick,setIngdsClick,mealId}){
         });
         setIngdsClick(!ingdsClick);
         setAddedIngds([]);
+    }
+
+    const displayCounter = ()=>{
+
+        let options = [];
+
+        for(let i =1; i< 11; i++){
+            options.push(<option value={i} key={i} onChange={handleCounter}>{i}</option>);
+        }
+        return options;
     }
 
     return(
@@ -63,6 +79,14 @@ function MealComps({ingdsClick,setIngdsClick,mealId}){
                     }
                 </div>
                 <button onClick={handleAddToCheck}>Order Meal</button>
+                <div className='orders-counter'>
+                    <label>Number of Meals : </label>
+                    <select>
+                        {
+                            displayCounter()
+                        }
+                    </select>
+                </div>
             </div>
         </div>
     );

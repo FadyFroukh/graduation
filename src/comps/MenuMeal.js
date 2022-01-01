@@ -1,26 +1,30 @@
 import React , {useState,useEffect } from 'react';
 import Container from './Container';
-import MenuSection from './MenuSection';
 import axios from 'axios';
 import MenuError from './MenuError';
 import "../css/MenuError.css";
 import Button from './pages/Button';
+import SoloSection from './SoloSection';
+import MealComps from './MealComps';
 
 function MenuMeal({match}){
     let id = match.params.id;
 
     const [mainMeals,setMainMeals] = useState([]);
-    const [desserts,setDesserts] = useState([]);
+    const [appetizers,setAppetizers] = useState([]);
     const [drinks,setDrinks] = useState([]);
     const [sweets,setSweets] = useState([]);
     const [shishas,setShishas] = useState([]);
     const [error,setError] = useState(false);
+    
+    const [mealId,setMealId] = useState("");
+    const [ingdsClick,setIngdsClick] = useState(false);
 
     useEffect(()=>{
         axios.get("http://localhost:4000/meals").then(res=>{
 
             setMainMeals(res.data.filter(meal=>meal.itemCat==="main"));
-            setDesserts(res.data.filter(meal=>meal.itemCat==="desserts"));
+            setAppetizers(res.data.filter(meal=>meal.itemCat==="desserts"));
             setDrinks(res.data.filter(meal=>meal.itemCat==="drinks"));
             setSweets(res.data.filter(meal=>meal.itemCat==="sweets"));
             setShishas(res.data.filter(meal=>meal.itemCat==="shishas"));
@@ -35,14 +39,22 @@ function MenuMeal({match}){
     const cont = (meals)=>{
         return(
             <div>
-            <Container>
-                <div className="col-lg-6">
-                    <Button btnText="Go Back" marginTop="20px" btnWidth="200px" btnLink="/table"/>
-                </div>              
-            </Container>
-            <Container isCenter={true}>
-                <MenuSection heading={id.replace(/^\w/, (c) => c.toUpperCase())} meals={meals} divClass="col-lg-6" isAdmin={false}/>
-            </Container>
+                <Container>
+                    <div className="col-lg-6">
+                        <Button btnText="Go Back" marginTop="20px" btnWidth="200px" btnLink="/table"/>
+                    </div>              
+                </Container>
+                <Container isCenter={true}>
+                    {
+                        id === "main" ? <SoloSection heading={id.replace(/^\w/, (c) => c.toUpperCase())} meals={meals} divClass="col-lg-6"
+                        setMealId={setMealId} ingdsClick={ingdsClick} setIngdsClick={setIngdsClick}
+                    /> : 
+                        <SoloSection heading={id.replace(/^\w/, (c) => c.toUpperCase())} meals={meals} divClass="col-lg-6"
+                        setMealId={setMealId}
+                        />
+                    }
+                </Container>
+                {ingdsClick ? <MealComps ingdsClick={ingdsClick} setIngdsClick={setIngdsClick} mealId={mealId}/> : null}
             </div>
         )
     }
@@ -52,10 +64,10 @@ function MenuMeal({match}){
             <MenuError/>
         );
     } else {
-        if(id === "desserts"){
+        if(id === "appetizers"){
             return(
                 <>
-                    {cont(desserts)}
+                    {cont(appetizers)}
                 </>
             );
         } else if (id === "main"){

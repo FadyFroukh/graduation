@@ -38,6 +38,7 @@ function Menu(){
             console.log(err);
             setError(true);
         })
+
     },[])
 
     return(
@@ -61,7 +62,7 @@ function Menu(){
                         <MenuSection heading="Main Meals" meals={mainMeals} divClass="col-lg-4"
                         ingdsClick={ingdsClick} setIngdsClick={setIngdsClick} setMealId={setMealId}
                          />
-                        <MenuSection heading="Desserts" meals={desserts} divClass="col-lg-4" 
+                        <MenuSection heading="Appetizers" meals={desserts} divClass="col-lg-4" 
                         setMealId={setMealId}
                         />
                         <MenuSection heading="Drinks" meals={drinks} divClass="col-lg-4"

@@ -9,6 +9,7 @@ function CheckItem({order,total,setTotal}){
         }).catch(err=>{
             console.log("An error occured");
         })
+        setTotal((total)=>total - order.itemPrice);
     }
 
     useEffect(()=>{

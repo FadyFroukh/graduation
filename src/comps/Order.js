@@ -8,9 +8,12 @@ function Order({order,total,setTotal}){
 
     const handleDelete = ()=>{
         axios.delete("http://localhost:4000/orders/" + order._id).then(res=>{
+
         }).catch(err=>{
             console.log("An error occured");
         })
+
+        setTotal((total)=>total - order.itemPrice);
     }
 
     const showIngds = ()=>{
@@ -44,9 +47,9 @@ function Order({order,total,setTotal}){
             {
                 show ? <div className='order-ingds'>
                     {
-                        order.ingds.map(ingd=>
-                            <p>{ingd}</p>    
-                        )
+                        order.ingds.length > 0 ? order.ingds.map((ingd,i)=>
+                            <p key={i}>{ingd}</p>    
+                        ) : <p>No added ingredients</p>
                     }
                     </div> : null
             }
