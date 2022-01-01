@@ -1,41 +1,37 @@
 import axios from 'axios';
-import React, {useEffect, useState } from 'react';
+import React from 'react';
 import {FaPlusCircle,FaInfoCircle} from 'react-icons/fa';
 import swal from 'sweetalert';
 
-
-function TableIcons({mealName,mealPrice,mealInfo}){
+function TableIcons({meal,ingdsClick,setIngdsClick,setMealId}){
     
-    const [checkMeal,setCheckMeal] = useState("");
-    const [checkPrice,setCheckPrice] = useState(0);
-
-    useEffect(()=>{
-        setCheckMeal(mealName);
-        setCheckPrice(mealPrice);
-    },[mealName,mealPrice])
-
-    const handleAddToCheck = ()=>{
-        axios.post("http://localhost:4000/orders",{
-            itemName:checkMeal,
-            itemPrice:checkPrice,
+    const handleIngdsMenu = ()=>{
+        setMealId(meal._id);
+        if(ingdsClick === false){
+            setIngdsClick(!ingdsClick);
+        }else{
+            axios.post("http://localhost:4000/orders",{
+            itemName:meal.itemName,
+            itemPrice:meal.itemPrice,
             addedAt:new Date(),
             table:JSON.parse(localStorage.getItem("user"))._id
-        }).then(res=>{
-          console.log(res.data);
-          swal({title:"Meal Added Successfully",text:`Added ${mealName} to the check`,icon:"success"});
-        }).catch(err=>{
-            swal({title:"Something went wrong",text:"Contact the staff please",icon:"error"});
-        })
+            }).then(res=>{
+            console.log(res.data);
+            swal({title:"Meal Added Successfully",text:`Added ${meal.itemName} to the check`,icon:"success"});
+            }).catch(err=>{
+                swal({title:"Something went wrong",text:"Contact the staff please",icon:"error"});
+            })
+        }
     }
 
     const handleShowInfo = ()=>{
-        swal({title:"Meal Information",text:mealInfo,icon:"info"})
+        swal({title:meal.itemName,text:meal.itemInfo,icon:"info"})
     }
 
     return(
         <>
             <div className="icons">
-                <FaPlusCircle onClick={handleAddToCheck}/>
+                <FaPlusCircle onClick={handleIngdsMenu}/>
                 <FaInfoCircle onClick={handleShowInfo}/>
             </div>
         </>

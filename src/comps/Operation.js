@@ -19,11 +19,14 @@ function Operation({match}){
         }).catch(err=>{
             setDatabaseError(!databaseError);
         })
+
         axios.get("http://localhost:4000/users").then(res=>{
             setUsers(res.data);
         }).catch(err=>{
             setDatabaseError(true);
         })
+
+
     },[menu])
 
     if(databaseError){

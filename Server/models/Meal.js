@@ -22,6 +22,11 @@ const mealSchema = new mongoose.Schema(
             type:String,
             required:true,
             trim:true
+        },
+        itemIngds:{
+            type:Array,
+            required:false,
+            trim:true
         }
     }
 )

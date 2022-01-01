@@ -8,7 +8,6 @@ function AdminTable({user}){
     useEffect(()=>{
         axios.get("http://localhost:4000/orders/" + user._id).then(res=>{
             setOrders(res.data);
-            console.log(res.data);
         }).catch(()=>{
             console.log("An error occured");
         })
@@ -20,8 +19,8 @@ function AdminTable({user}){
                 <header className="orders-header text-center">{user.name}</header>
                 <div className="orders">
                    {
-                       orders.map(order=>
-                            <p>{order.itemName}</p>
+                       orders.map((order,i)=>
+                            <p key={i}>{order.itemName}</p>
                         )
                    }
                 </div>

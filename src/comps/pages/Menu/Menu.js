@@ -6,6 +6,8 @@ import MenuError from '../../MenuError';
 import Container from '../../Container';
 import Button from '../Button';
 import Check from '../../Check';
+import MealComps from '../../MealComps';
+import swal from 'sweetalert';
 
 function Menu(){
     const [mainMeals,setMainMeals] = useState([]);
@@ -16,6 +18,9 @@ function Menu(){
 
     const [error,setError] = useState(false);
     const [click,setClick] = useState(false);
+    const [ingdsClick,setIngdsClick] = useState(false);
+
+    const [mealId,setMealId] = useState("");
 
     const handleClick = ()=>{
         setClick(!click);
@@ -45,7 +50,6 @@ function Menu(){
                 :
                  <>
                     <Container>
-                
                         <div className="col-lg-6 header-btn">
                             <Button btnText="Go Back" marginTop="20px" btnWidth="200px" btnLink="/table"/>
                         </div>
@@ -54,13 +58,24 @@ function Menu(){
                         </div>
                     </Container>
                     <Container>
-                        <MenuSection heading="Main Meals" meals={mainMeals} divClass="col-lg-4" isAdmin={false}/>
-                        <MenuSection heading="Desserts" meals={desserts} divClass="col-lg-4" isAdmin={false}/>
-                        <MenuSection heading="Drinks" meals={drinks} divClass="col-lg-4" isAdmin={false}/>
-                        <MenuSection heading="Sweets" meals={sweets} divClass="col-lg-6" isAdmin={false}/>
-                        <MenuSection heading="Shishas" meals={shishas} divClass="col-lg-6" isAdmin={false}/>
+                        <MenuSection heading="Main Meals" meals={mainMeals} divClass="col-lg-4"
+                        ingdsClick={ingdsClick} setIngdsClick={setIngdsClick} setMealId={setMealId}
+                         />
+                        <MenuSection heading="Desserts" meals={desserts} divClass="col-lg-4" 
+                        setMealId={setMealId}
+                        />
+                        <MenuSection heading="Drinks" meals={drinks} divClass="col-lg-4"
+                        setMealId={setMealId}
+                        />
+                        <MenuSection heading="Sweets" meals={sweets} divClass="col-lg-6" 
+                        setMealId={setMealId}
+                        />
+                        <MenuSection heading="Shishas" meals={shishas} divClass="col-lg-6" 
+                        setMealId={setMealId}
+                        />
                     </Container>
                     {click ? <Check/> : null}
+                    {ingdsClick ? <MealComps ingdsClick={ingdsClick} setIngdsClick={setIngdsClick} mealId={mealId}/> : null}
                  </>
             }
         </div>

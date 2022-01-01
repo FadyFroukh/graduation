@@ -7,6 +7,7 @@ function EditMeal({menu}){
 
     const [showMenu,setShowMenu] = useState(false);
     const [id,setId] = useState("");
+    const [oldMeal,setOldMeal] = useState({});
 
     return(
         <>
@@ -17,13 +18,13 @@ function EditMeal({menu}){
                     {
                         menu.map((meal,index)=>
                             <div key={index}>
-                                <Meal meal={meal} showMenu={showMenu} setShowMenu={setShowMenu} setId={setId}/>
+                                <Meal meal={meal} setOldMeal={setOldMeal} showMenu={showMenu} setShowMenu={setShowMenu} setId={setId}/>
                             </div>
                         )
                     }
                 </div>
                 {
-                showMenu ? <EditMealMenu showMenu={showMenu} setShowMenu={setShowMenu} id={id}/> : null
+                showMenu ? <EditMealMenu showMenu={showMenu} setShowMenu={setShowMenu} id={id} oldMeal={oldMeal}/> : null
                 }
             </main>
         </>

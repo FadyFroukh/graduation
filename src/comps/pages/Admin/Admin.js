@@ -42,7 +42,7 @@ function Admin(){
         <>
             <Container>
                 <header className="admin-page-header">
-                    <p>Admin : {user.name}</p>
+                    <p>Admin : <b>{user.name}</b></p>
                     <button onClick={handleLogOut}>Log Out</button>
                     <div className="login-time">Logged in at <span>{year}</span>/ {month} / {day}</div>
                 </header>

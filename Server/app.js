@@ -117,9 +117,13 @@ app.put("/tables", async (req,res)=>{
 //Meals Endpoints
 
 app.get("/meals",async (req,res)=>{
-
     var meals = await Meal.find({});
     res.send(meals)
+})
+
+app.get("/meals/:id",async (req,res)=>{
+  const meal = await Meal.findById(ObjectId(req.params.id));
+  res.send(meal);
 })
 
 app.post("/meals",(req,res)=>{
@@ -129,7 +133,8 @@ app.post("/meals",(req,res)=>{
       itemName:req.body.itemName,
       itemCat:req.body.itemCat,
       itemPrice:req.body.itemPrice,
-      itemInfo:req.body.itemInfo
+      itemInfo:req.body.itemInfo,
+      itemIngds:req.body.itemIngds
     }
   )
   console.log(meal);
@@ -151,7 +156,8 @@ app.put("/meals", async (req,res)=>{
     itemName:req.body.mealName,
     itemCat:req.body.mealCat,
     itemPrice:req.body.mealPrice,
-    itemInfo:req.body.mealInfo
+    itemInfo:req.body.mealInfo,
+    itemIngds:req.body.ingds
   });
 })
 
@@ -160,6 +166,7 @@ app.delete("/meals/:id", async (req,res)=>{
   const meal = await Meal.findById(req.params.id);
   await Meal.deleteOne(ObjectId(meal.id));
 })
+
 //Orders Endpoints
 
 app.get("/orders",(req,res)=>{
@@ -187,7 +194,8 @@ app.post("/orders",async (req,res)=>{
     itemName:req.body.itemName,
     itemPrice:req.body.itemPrice,
     addedAt:req.body.addedAt,
-    table:ObjectId(req.body.table)
+    table:ObjectId(req.body.table),
+    ingds:req.body.ingds
   });
 
   await item.save();
@@ -209,8 +217,10 @@ app.delete("/orders/:id", async (req,res)=>{
     await Order.deleteOne(ObjectId(order.id));
 })
 
+
 //Listening for the port
 
 app.listen(port,()=>{
     console.log(`Listening on port : ${port}`);
 })
+

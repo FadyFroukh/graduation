@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import "../css/Order.css";
-import {FaTrash} from 'react-icons/fa';
+import {FaSortDown,FaSortUp, FaTrash} from 'react-icons/fa';
 import axios from 'axios';
 function Order({order,total,setTotal}){
+
+    const [show,setShow] = useState(false);
 
     const handleDelete = ()=>{
         axios.delete("http://localhost:4000/orders/" + order._id).then(res=>{
@@ -11,24 +13,44 @@ function Order({order,total,setTotal}){
         })
     }
 
+    const showIngds = ()=>{
+        setShow(!show);
+    }
+
     useEffect(()=>{
         setTotal((total)=>total+order.itemPrice);
     },[])
 
     return(
-        <>
+        <div className='ord'>
             <div className="order">
-                <div className="order-name">
-                    <p>{order.itemName}</p>
+                <div className='order-body'>
+                    <div className="order-name">
+                        <p>{order.itemName}</p>
+                    </div>
+                    <div className="order-price">
+                        <p>{order.itemPrice}</p>
+                    </div>
+                    <div className="order-ops">
+                        <FaTrash style={{color:"#EA2027"}} onClick={handleDelete}/>
+                    </div>
                 </div>
-                <div className="order-price">
-                    <p>{order.itemPrice}</p>
-                </div>
-                <div className="order-ops">
-                    <FaTrash style={{color:"#EA2027"}} onClick={handleDelete}/>
+                <div>
+                    {
+                        show ? <FaSortUp onClick={showIngds}/> : <FaSortDown onClick={showIngds}/>
+                    }
                 </div>
             </div>
-        </>
+            {
+                show ? <div className='order-ingds'>
+                    {
+                        order.ingds.map(ingd=>
+                            <p>{ingd}</p>    
+                        )
+                    }
+                    </div> : null
+            }
+        </div>
     );
 }
 

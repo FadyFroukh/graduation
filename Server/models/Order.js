@@ -20,6 +20,11 @@ const itemSchema = new mongoose.Schema({
         type:mongoose.ObjectId,
         required:true,
         ref:"User",
+    },
+    ingds:{
+        type:Array,
+        required:false,
+        trim:true
     }
 })
 

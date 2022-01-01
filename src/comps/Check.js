@@ -63,6 +63,7 @@ function Check(){
                                     <CheckItem key={index} order={order} total={total} setTotal={setTotal}/>
                                 )
                             }
+
                             <div className="total">
                                 {
                                     orders.length === 0 ? <h3>You Should Order Something First!</h3> : <>

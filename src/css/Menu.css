@@ -3,36 +3,51 @@
     background-color: #eee;
 }
 
-
-/* Check Popup */
-.check{
-    max-height: 500px;
+/* Meal Ingredients Popup */
+.meal-comps{
+    height: 150vh;
+    width: 100%;
+    position: absolute;
+    background-color: #eee;
+    top: 0;
+}
+.meal-comps header{
+    display: flex;
+    justify-content: space-around;
+    margin: 30px 0;
+}
+.meal-comps .meal-ingds{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.meal-ingds .meal-ingds-container{
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
     overflow-y: scroll;
+    padding: 5px;
 }
-.check h2{
-    margin-bottom: 20px;
-}
-.check ul {
-    list-style: none;
-    line-height: 3;
-}
-.check ul li {
+.meal-ingds .meal-ingds-container .ingd {
+    height: 50px;
+    margin-bottom: 3px;
     display: flex;
     justify-content: space-around;
-    padding: 7px;
+    align-items: center;
 }
-.check ul div {
-    font-size: 20px;
+.meal-ingds .meal-ingds-container .ingd:nth-of-type(even){
+    background-color: #ccc;
+}
+.meal-ingds .meal-ingds-container .ingd p {
+    margin: 0;
+    font-size: 25px;
 }
 
-.check .total{
+.no-ingds{
     display: flex;
-    justify-content: space-around;
-    padding: 15px;
-    font-weight: bold;
-    font-size: 23px;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
 }
-.check .total p {
-    margin-bottom: 0;
-}
-

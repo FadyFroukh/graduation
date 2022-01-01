@@ -13,7 +13,7 @@
 }
 
 .check-overlay .check-div{
-    min-height: 80vh;
+    height: 80vh;
     overflow-y:scroll;
 }
 .check-overlay .check-div .check-item{

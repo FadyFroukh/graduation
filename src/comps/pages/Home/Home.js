@@ -9,7 +9,8 @@ function Home(){
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
     const [isLogged,setIsLogged] = useState(false);
-    
+    const [isLoading,setIsLoading] = useState(false);
+
 
     const handleUsername = (e)=>{
         setUsername(e.target.value);
@@ -21,15 +22,28 @@ function Home(){
 
     const handleSubmit = (e)=>{
         e.preventDefault();
-        axios.post("http://localhost:4000/login",{name:username,password}).then(res=>{
-            if(res.data.length > 0 ){
-                setIsLogged(true);
-                localStorage.setItem("user",JSON.stringify(res.data[0]));
-                localStorage.setItem("isLogin",true);
-            }
-        }).catch(err=>{
-            swal({title:"Something went wrong..",text:"An error occured while trying login to to the system",icon:"error"});
-        })
+        if(username.trim() === "" || password.trim() === ""){
+            swal({title:"Empty Fields",text:"Check All Options , No Empty Fields",icon:"error"});
+        }else {
+            setIsLoading(!isLoading);
+            axios.post("http://localhost:4000/login",{name:username,password}).then(res=>{
+                if(res.data.length > 0 ){
+                    setIsLogged(true);
+                    localStorage.setItem("user",JSON.stringify(res.data[0]));
+                    localStorage.setItem("isLogin",true);
+                    setIsLoading(false);
+                }else {
+                    setUsername("");
+                    setPassword("");
+                    swal({title:"Incorrect Credentials Given",text:`Username or Password Incorrect , Check Again`,icon:"error"});
+                    setIsLoading(false);
+                }
+            }).catch(err=>{
+                setUsername("");
+                setPassword("");
+                swal({title:"Something went wrong..",text:"An error occured while trying to connect to to the system",icon:"error"});
+            })    
+        }
     }
 
     useEffect(()=>{
@@ -51,6 +65,13 @@ function Home(){
 
     return(
         <>
+         {
+             isLoading ? <div className='loading'>
+                            <h1>Loading...</h1>
+                            <p>Checking Your Credentials</p>
+                        </div>
+                    : null    
+         }
           <main className="admin-page-overlay">
             <Container>
                 <div className="col-lg-12 form-div">
