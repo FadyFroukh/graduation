@@ -3,12 +3,11 @@ import ExitHeader from './ExitHeader';
 import axios from 'axios';
 import swal from 'sweetalert';
 
-function EditUserMenu({showMenu,setShowMenu,id}){
+function EditUserMenu({showMenu,setShowMenu,id,oldUser}){
 
-    const [name,setName] = useState("");
-    const [password,setPassword] = useState("");
-    const [rule,setRule] = useState(0);
- 
+    const [name,setName] = useState(oldUser.name);
+    const [password,setPassword] = useState(oldUser.password);
+    const [rule,setRule] = useState(oldUser.rule);
 
     const handleName = (e)=>{
         setName(e.target.value);
@@ -20,7 +19,17 @@ function EditUserMenu({showMenu,setShowMenu,id}){
 
     const handleRule = (e)=>{
         setRule(e.target.value);
+    }
 
+    const handleJob = (rule)=>{
+        switch(oldUser.rule){
+            case 0 :return "Table";
+            break;
+            case 1 : return "Waiter";
+            break;
+            case 2 : return "Admin";
+            break;
+        }
     }
 
 
@@ -40,12 +49,13 @@ function EditUserMenu({showMenu,setShowMenu,id}){
                 rule
                 
             }).then(res=>{
-    
+                console.log(res.data);
             }).catch(()=>{
                 console.log("An error occured");
             })
     
             setShowMenu(!showMenu);
+            swal({title:"User Updated Successfully",text:`User ${oldUser.name} is now updated!`,icon:"success"})
         }
     }
 
@@ -55,13 +65,14 @@ function EditUserMenu({showMenu,setShowMenu,id}){
                 <ExitHeader showMenu={showMenu} setShowMenu={setShowMenu}/>
                 <h2>Edit a meal inside the database</h2>
                 <form onSubmit={handleSubmit}>
+                    <p className='text-center'><b>Editing : {oldUser.name} a ( {handleJob(rule)} )</b></p>
                     <div className="form-part">
                         <label htmlFor="name">Username</label>
                         <input type="text" name="name" maxLength="25" value={name} onChange={handleName}/>
                     </div>
                     <div className="form-part">
                         <label htmlFor="password">Password</label>
-                        <input type="text" name="password" maxLength="25" value={password} onChange={handlePassword}/>
+                        <input type="text" name="text" maxLength="25" value={password} onChange={handlePassword}/>
                     </div>
                     <div className="form-part">
                         <label htmlFor="rule">Rule</label>

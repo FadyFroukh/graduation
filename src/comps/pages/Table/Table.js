@@ -96,7 +96,7 @@ function Table(){
                     </div>
                     <div className="col-lg-4 side-menu">
                         <div className="menu-item">
-                            <Button btnText="Appetizers" btnWidth="100%" btnHeight="90px" btnLink="/menu/appetizers"/>
+                            <Button btnText="appetizers" btnWidth="100%" btnHeight="90px" btnLink="/menu/appetizers"/>
                         </div>
                         <div className="menu-item">
                             <Button btnText="Main Meals" btnWidth="100%" btnHeight="90px" btnLink="/menu/main"/>

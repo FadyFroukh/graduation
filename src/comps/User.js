@@ -3,7 +3,7 @@ import {FaTrash,FaEdit} from 'react-icons/fa';
 import axios from 'axios';
 import "../css/User.css";
 
-function User({user,setShowMenu,showMenu,setId}){
+function User({user,setShowMenu,showMenu,setId,setOldUser}){
 
     const handleDelete = ()=>{
         axios.delete("http://localhost:4000/users/" + user._id).then(res=>{
@@ -15,6 +15,7 @@ function User({user,setShowMenu,showMenu,setId}){
     const handleEditMenu = ()=>{
         setShowMenu(!showMenu);
         setId(user._id);
+        setOldUser(user);
     }
 
     return(

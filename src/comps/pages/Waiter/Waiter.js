@@ -1,25 +1,16 @@
 import React , {useState,useEffect} from 'react';
 import Container from '../../Container';
 import "../../../css/Waiter.css";
-import axios from 'axios';
 import {Link} from 'react-router-dom'
+import { fetchTables,handleLogout } from '../Utils';
 function Waiter(){
 
     const [users,setUsers] = useState([]);
 
     useEffect(()=>{
-        axios.get("http://localhost:4000/tables").then(res=>{
-            setUsers(res.data);
-        }).catch(err=>{
-            console.log("An error occured");
-        })
+        fetchTables(setUsers);
     },[users])
 
-    const handleLogout = ()=>{
-        localStorage.removeItem("user");
-        localStorage.removeItem("isLogin");
-        window.location.href = "/";        
-    }
 
     return(
         <>
@@ -31,7 +22,7 @@ function Waiter(){
                 <Container>
                     <div className="col-lg-4">
                         {
-                            users.map((user,index)=>
+                            users?.map((user,index)=>
                                 <div key={index} className="table-status">
                                     <p>{user.name} </p>
                                     {

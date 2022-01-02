@@ -1,4 +1,4 @@
-import React , {useEffect, useState}  from 'react';
+import React , {useState}  from 'react';
 import Button from './pages/Button';
 import swal from 'sweetalert';
 import axios from 'axios';

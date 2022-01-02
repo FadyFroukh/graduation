@@ -1,17 +1,17 @@
 import React , {useState,useEffect } from 'react';
 import Container from './Container';
-import axios from 'axios';
 import MenuError from './MenuError';
 import "../css/MenuError.css";
 import Button from './pages/Button';
 import MealComps from './MealComps';
 import MenuSection from './MenuSection';
-import {displaySelect} from './pages/Menu/Menu';
-import swal from 'sweetalert';
+import { displaySelect,orderMeals,getMeal,fetchMeals } from './pages/Utils';
 import CounterMenu from './CounterMenu';
 
 function MenuMeal({match}){
     let id = match.params.id;
+
+    const [table] = useState(JSON.parse(localStorage.getItem("user"))._id);
 
     const [mainMeals,setMainMeals] = useState([]);
     const [appetizers,setAppetizers] = useState([]);
@@ -32,53 +32,8 @@ function MenuMeal({match}){
     const [ingdsClick,setIngdsClick] = useState(false);
 
     useEffect(()=>{
-        axios.get("http://localhost:4000/meals").then(res=>{
-
-            setMainMeals(res.data.filter(meal=>meal.itemCat==="main"));
-            setAppetizers(res.data.filter(meal=>meal.itemCat==="desserts"));
-            setDrinks(res.data.filter(meal=>meal.itemCat==="drinks"));
-            setSweets(res.data.filter(meal=>meal.itemCat==="sweets"));
-            setShishas(res.data.filter(meal=>meal.itemCat==="shishas"));
-
-        }).catch(err=>{
-            console.log(err);
-            setError(true);
-        })
-        
+        fetchMeals({setMainMeals,setDesserts:setAppetizers,setDrinks,setSweets,setShishas,setError});
     },[])
-
-    const getMeal = ()=>{
-        axios.get("http://localhost:4000/meals/" + mealId).then(res=>{
-            setIngds(res.data.itemIngds);
-            setMealName(res.data.itemName);
-            setMealPrice(res.data.itemPrice);
-        }).catch(()=>{
-            console.log("Error Fetching Ingds");
-        })
-    }
-
-    const orderMeals = ()=>{
-        for(let i =0; i<counter; i++){
-            axios.post("http://localhost:4000/orders",{
-                itemName:mealName,
-                itemPrice:mealPrice,
-                addedAt:new Date(),
-                table:JSON.parse(localStorage.getItem("user"))._id,
-                ingds:addedIngds
-            }).then(res=>{
-
-            }).catch(err=>{
-                swal({title:"Something went wrong",text:"Contact the staff please",icon:"error"});
-            });
-        }
-        if(counter > 1){
-            swal({title:"Meals Added Successfully",text:`Added ${counter} ${mealName} to the check`,icon:"success"});
-        }else {
-            swal({title:"Meal Added Successfully",text:`Added ${mealName} to the check`,icon:"success"});
-        }
-        setCounter(1);
-    }
-
 
     const cont = (meals)=>{
         return(
@@ -100,12 +55,27 @@ function MenuMeal({match}){
                 </Container>
                 {ingdsClick ? <MealComps ingdsClick={ingdsClick} setIngdsClick={setIngdsClick}
                     displaySelect={displaySelect} setCounter={setCounter}mealName={mealName}
-                    orderMeals={orderMeals} ingds={ingds} setIngds={setIngds} addedIngds={addedIngds}
-                    setAddedIngds={setAddedIngds} getMeal={getMeal} 
+                    orderMeals={()=>orderMeals({
+                        counter,
+                        mealName,
+                        mealPrice,
+                        addedIngds,
+                        setCounter,
+                        id:table
+                    })}  ingds={ingds} setIngds={setIngds} addedIngds={addedIngds}
+                    setAddedIngds={setAddedIngds} getMeal={()=>getMeal({mealId,setIngds,setMealName,setMealPrice})}
                     /> : null}
 
                 {countClick ? <CounterMenu countClick={countClick} setCountClick={setCountClick}
-                    displaySelect={displaySelect}  orderMeals={orderMeals} getMeal={getMeal} setCounter={setCounter}
+                    displaySelect={displaySelect}   orderMeals={()=>orderMeals({
+                        counter,
+                        mealName,
+                        mealPrice,
+                        addedIngds,
+                        setCounter,
+                        id:table
+                    })}  getMeal={()=>getMeal({mealId,setIngds,setMealName,setMealPrice})} 
+                    setCounter={setCounter}
                     /> : null}
             </div>
         )

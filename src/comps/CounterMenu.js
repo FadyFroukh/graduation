@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { FaTimes } from 'react-icons/fa';
 
-function CounterMenu({displaySelect,orderMeals,countClick,setCountClick,getMeal,setCounter})
+function CounterMenu({displaySelect,orderMeals,countClick,setCountClick,getMeal,setCounter,mealName})
 {
 
     useEffect(()=>{
@@ -26,6 +26,7 @@ function CounterMenu({displaySelect,orderMeals,countClick,setCountClick,getMeal,
             <div>
                 <FaTimes size="30" onClick={handleCountMenu}/>
             </div>
+            <h5>Ordering `<b>{mealName}</b>`</h5>
             <div className='counter-body'>
                 <h5>Choose Number of Items</h5>
                 <select onChange={handleCounter}>

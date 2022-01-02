@@ -55,6 +55,7 @@ app.get("/users",(req,res)=>{
     });
   }); 
 });
+
 app.post("/users",(req,res)=>{ 
     const user = new User({
       name:req.body.username,
@@ -200,10 +201,9 @@ app.post("/orders",async (req,res)=>{
 
   await item.save();
 
-
    const  user = await User.findById(req.body.table);
    user.orders.push(ObjectId(item._id));
-  await  user.save();
+   await  user.save();
    res.send(item);
 
 })

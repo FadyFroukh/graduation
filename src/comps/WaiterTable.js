@@ -2,13 +2,10 @@ import React , {useState,useEffect} from 'react';
 import axios from 'axios';
 import Button from './pages/Button';
 import Order from './Order';
-import { FaPlusCircle } from 'react-icons/fa';
 import MealComps from './MealComps';
 import CounterMenu from './CounterMenu';
-import {displaySelect} from './pages/Menu/Menu';
-import swal from 'sweetalert';
 import TableIcons from './TableIcons';
-
+import {getMeal,orderMeals,displaySelect} from "./pages/Utils";
 function WaiterTable({match}){
 
     const id = match.params.id;
@@ -29,7 +26,6 @@ function WaiterTable({match}){
     const [ingdsClick,setIngdsClick] = useState(false);
 
 
-
     useEffect(()=>{
         axios.get(`http://localhost:4000/tables/${id}`).then(res=>{
             setUser(res.data);
@@ -44,38 +40,7 @@ function WaiterTable({match}){
         }).catch(err=>{ 
             console.log(err);
         })
-    },[])
-
-    const getMeal = ()=>{
-        axios.get("http://localhost:4000/meals/" + mealId).then(res=>{
-            setIngds(res.data.itemIngds);
-            setMealName(res.data.itemName);
-            setMealPrice(res.data.itemPrice);
-        }).catch(()=>{
-            console.log("Error Fetching Ingds");
-        })
-    }
-    const orderMeals = ()=>{
-        for(let i =0; i<counter; i++){
-            axios.post("http://localhost:4000/orders",{
-                itemName:mealName,
-                itemPrice:mealPrice,
-                addedAt:new Date(),
-                table:id,
-                ingds:addedIngds
-            }).then(res=>{
-
-            }).catch(err=>{
-                swal({title:"Something went wrong",text:"Contact the staff please",icon:"error"});
-            });
-        }
-        if(counter > 1){
-            swal({title:"Meals Added Successfully",text:`Added ${counter} ${mealName} to the check`,icon:"success"});
-        }else {
-            swal({title:"Meal Added Successfully",text:`Added ${mealName} to the check`,icon:"success"});
-        }
-        setCounter(1);
-    }
+    },[id])
 
     return(
         <>
@@ -121,12 +86,27 @@ function WaiterTable({match}){
             {
             ingdsClick ? <MealComps ingdsClick={ingdsClick} setIngdsClick={setIngdsClick}
                 displaySelect={displaySelect} setCounter={setCounter}mealName={mealName}
-                orderMeals={orderMeals} ingds={ingds} setIngds={setIngds} addedIngds={addedIngds}
-                setAddedIngds={setAddedIngds} getMeal={getMeal} 
+                orderMeals={()=>orderMeals({
+                    counter,
+                    mealName,
+                    mealPrice,
+                    addedIngds,
+                    setCounter,
+                    id
+                })} ingds={ingds} setIngds={setIngds} addedIngds={addedIngds}
+                setAddedIngds={setAddedIngds} getMeal={()=>getMeal({mealId,setIngds,setMealName,setMealPrice})}
             /> : null}
 
-            {countClick ? <CounterMenu countClick={countClick} setCountClick={setCountClick}
-            displaySelect={displaySelect}  orderMeals={orderMeals} getMeal={getMeal} setCounter={setCounter}
+            {countClick ? <CounterMenu countClick={countClick} setCountClick={setCountClick} mealName={mealName}
+            displaySelect={displaySelect}   orderMeals={()=>orderMeals({
+                counter,
+                mealName,
+                mealPrice,
+                addedIngds,
+                setCounter,
+                id
+            })} getMeal={()=>getMeal({mealId,setIngds,setMealName,setMealPrice})} 
+            setCounter={setCounter}
             /> : null}
 
         </>

@@ -2,16 +2,10 @@ import React , {useEffect , useState} from 'react';
 import "../../../css/Admin.css";
 import Button from '../Button';
 import Container from '../../Container';
-import axios from 'axios';
 import AdminTable from '../../AdminTable';
+import {fetchTables,handleLogout} from '../Utils';
 function Admin(){
 
-    const handleLogOut = ()=>{
-        localStorage.removeItem("user");
-        localStorage.removeItem("isLogin");
-        window.location.href = "/";
-     }
- 
      const [user,setUser] = useState({});
  
      useEffect(()=>{
@@ -22,19 +16,11 @@ function Admin(){
      },[])
 
      const [users,setUsers] = useState([]);
-     const [year,setYear] = useState("");
-     const [month,setMonth] = useState("");
-     const [day,setDay] = useState("");
+     const [date,setDate] = useState();
 
      useEffect(()=>{
-         axios.get("http://localhost:4000/tables").then(res=>{
-             setUsers(res.data);
-         }).catch(err=>{
-             console.log("An error occured");
-         })
-         setYear(new Date().getFullYear());
-         setMonth(new Date().getMonth() + 1);
-         setDay(new Date().getDate())
+         fetchTables(setUsers);
+         setDate(new Date().toLocaleDateString())
      },[users])
  
 
@@ -43,8 +29,8 @@ function Admin(){
             <Container>
                 <header className="admin-page-header">
                     <p>Admin : <b>{user.name}</b></p>
-                    <button onClick={handleLogOut}>Log Out</button>
-                    <div className="login-time">Logged in at <span>{year}</span>/ {month} / {day}</div>
+                    <button onClick={handleLogout}>Log Out</button>
+                    <div className="login-time">Logged in at <span>{date}</span></div>
                 </header>
 
                 <div className="col-lg-4 meals">

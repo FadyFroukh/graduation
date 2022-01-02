@@ -30,6 +30,7 @@ function MealComps({ingdsClick,setIngdsClick,displaySelect,mealName,orderMeals,i
                 <FaTimes size="27" onClick={handleIngdsMenu}/>
             </header>
             <div className='meal-ingds'>
+                <h5>Ordering `<b>{mealName}</b>`</h5>
                 <div className='meal-ingds-container'>
                     {
                         ingds?.length > 0 ? 
