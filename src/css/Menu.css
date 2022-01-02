@@ -5,7 +5,7 @@
 
 /* Meal Ingredients Popup */
 .meal-comps{
-    height: 150vh;
+    height: 170vh;
     width: 100%;
     position: absolute;
     background-color: #eee;
@@ -21,6 +21,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+button{
+    width: 150px;
+    height: 40px;
+    border: 1px solid #ccc;
+    background-color: #aaa;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 .meal-ingds .meal-ingds-container{
     width: 500px;
@@ -51,6 +60,16 @@
 .meal-ingds .orders-counter{
     display: flex;
 }
+.meal-ingds .orders-counter label{
+    font-weight: bold;
+}
+
+select{
+    width: 100px;
+    text-align: center;
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
 
 .no-ingds{
     display: flex;
@@ -59,18 +78,30 @@
     height: 400px;
 }
 
-button{
-    width: 150px;
-    height: 40px;
-    border: 1px solid #ccc;
-    background-color: #aaa;
-    border-radius: 10px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
+/* Counter Menu Popup */
 
-select{
-    width: 100px;
-    text-align: center;
-    margin-left: 10px;
+.counter-menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 161vh;
+    background-color: rgba(225,255,255,0.7);
+    position: absolute;
+    top: 0;
+}
+.counter-menu .counter-body{
+    margin-top: 30px;
+    width: 250px;
+    height: 250px;
+    border-radius: 10px;
+    background-color: #ccc;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.counter-menu .counter-body h5{
+    margin-bottom: 20px;
 }

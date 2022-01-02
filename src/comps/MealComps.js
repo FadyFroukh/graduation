@@ -1,61 +1,26 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {FaTimes } from 'react-icons/fa';
 import "../css/Menu.css";
 import Ingredient from './Ingredient';
-import swal from 'sweetalert';
-function MealComps({ingdsClick,setIngdsClick,mealId}){
-
-    const [ingds,setIngds] = useState([]);
-    const [addedIngds,setAddedIngds] = useState([]);
-    const [mealName,setMealName] = useState("");
-    const [mealPrice,setMealPrice] = useState(0);
-    const [counter,setCounter] = useState(1);
+function MealComps({ingdsClick,setIngdsClick,displaySelect,mealName,orderMeals,ingds,addedIngds,setAddedIngds,getMeal,setCounter})
+{
 
     useEffect(()=>{
-        axios.get("http://localhost:4000/meals/" + mealId).then(res=>{
-            setIngds(res.data.itemIngds);
-            setMealName(res.data.itemName);
-            setMealPrice(res.data.itemPrice);
-        }).catch(()=>{
-            console.log("Error Fetching Ingds");
-        })
+        getMeal();
     },[])
 
+    const handleCounter = (e)=>{
+        setCounter(e.target.value);
+    }
 
     const handleIngdsMenu = ()=>{
         setIngdsClick(!ingdsClick);
     }
 
-    const handleCounter = (e)=>{
-        setCounter(e.target.value);
-        console.log(counter);
-    }
-
     const handleAddToCheck = ()=>{
-        axios.post("http://localhost:4000/orders",{
-            itemName:mealName,
-            itemPrice:mealPrice,
-            addedAt:new Date(),
-            table:JSON.parse(localStorage.getItem("user"))._id,
-            ingds:addedIngds
-        }).then(res=>{
-        swal({title:"Meal Added Successfully",text:`Added ${mealName} to the check`,icon:"success"});
-        }).catch(err=>{
-            swal({title:"Something went wrong",text:"Contact the staff please",icon:"error"});
-        });
-        setIngdsClick(!ingdsClick);
-        setAddedIngds([]);
-    }
-
-    const displayCounter = ()=>{
-
-        let options = [];
-
-        for(let i =1; i< 11; i++){
-            options.push(<option value={i} key={i} onChange={handleCounter}>{i}</option>);
-        }
-        return options;
+       orderMeals();
+       setIngdsClick(!ingdsClick);
+       setAddedIngds([]);
     }
 
     return(
@@ -81,9 +46,9 @@ function MealComps({ingdsClick,setIngdsClick,mealId}){
                 <button onClick={handleAddToCheck}>Order Meal</button>
                 <div className='orders-counter'>
                     <label>Number of Meals : </label>
-                    <select>
+                    <select onChange={handleCounter}>
                         {
-                            displayCounter()
+                            displaySelect()
                         }
                     </select>
                 </div>

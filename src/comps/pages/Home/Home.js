@@ -67,7 +67,7 @@ function Home(){
         <>
          {
              isLoading ? <div className='loading'>
-                            <h1>Loading...</h1>
+                            <h1>Trying to Log You In...</h1>
                             <p>Checking Your Credentials</p>
                         </div>
                     : null    

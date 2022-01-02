@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import {FaTrash} from 'react-icons/fa';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 function CheckItem({order,total,setTotal}){
 
@@ -10,6 +11,7 @@ function CheckItem({order,total,setTotal}){
             console.log("An error occured");
         })
         setTotal((total)=>total - order.itemPrice);
+        swal({title:"Item Deleted Successfully",text:`${order.itemName} Removed from The Check`,icon:"success"})
     }
 
     useEffect(()=>{
@@ -20,7 +22,6 @@ function CheckItem({order,total,setTotal}){
         <div className="check-item">
             <div className="item-name">{order.itemName}</div>
             <div className="item-price">{order.itemPrice}</div>
-            <div>{order._id}</div>
             <div className="item-delete"><FaTrash onClick={handleDelete}/></div>
         </div>  
     );

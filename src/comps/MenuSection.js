@@ -3,7 +3,7 @@ import {IconContext} from 'react-icons/lib';
 import "../css/MenuSection.css";
 import TableIcons from './TableIcons';
 
-function MenuSection({heading,meals,divClass,ingdsClick,setIngdsClick,setMealId}){
+function MenuSection({heading,meals,divClass,ingdsClick,setIngdsClick,setMealId,countClick,setCountClick}){
 
     return(
         <>
@@ -25,6 +25,7 @@ function MenuSection({heading,meals,divClass,ingdsClick,setIngdsClick,setMealId}
                             <div className="meal-name">{meal.itemName}</div>
                             <div className="price">{meal.itemPrice}</div>
                             <TableIcons meal={meal} ingdsClick={ingdsClick} setIngdsClick={setIngdsClick} setMealId={setMealId}
+                            countClick={countClick} setCountClick={setCountClick}
                             />
                         </div>
                         )

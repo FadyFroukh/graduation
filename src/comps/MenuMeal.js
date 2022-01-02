@@ -4,8 +4,11 @@ import axios from 'axios';
 import MenuError from './MenuError';
 import "../css/MenuError.css";
 import Button from './pages/Button';
-import SoloSection from './SoloSection';
 import MealComps from './MealComps';
+import MenuSection from './MenuSection';
+import {displaySelect} from './pages/Menu/Menu';
+import swal from 'sweetalert';
+import CounterMenu from './CounterMenu';
 
 function MenuMeal({match}){
     let id = match.params.id;
@@ -16,6 +19,14 @@ function MenuMeal({match}){
     const [sweets,setSweets] = useState([]);
     const [shishas,setShishas] = useState([]);
     const [error,setError] = useState(false);
+
+    const [mealName,setMealName] = useState("");
+    const [mealPrice,setMealPrice] = useState(0);
+    const [ingds,setIngds] = useState([]);
+    const [counter,setCounter] = useState(1);
+    const [addedIngds,setAddedIngds] = useState([]);
+    const [countClick,setCountClick] = useState(false);
+
     
     const [mealId,setMealId] = useState("");
     const [ingdsClick,setIngdsClick] = useState(false);
@@ -36,6 +47,39 @@ function MenuMeal({match}){
         
     },[])
 
+    const getMeal = ()=>{
+        axios.get("http://localhost:4000/meals/" + mealId).then(res=>{
+            setIngds(res.data.itemIngds);
+            setMealName(res.data.itemName);
+            setMealPrice(res.data.itemPrice);
+        }).catch(()=>{
+            console.log("Error Fetching Ingds");
+        })
+    }
+
+    const orderMeals = ()=>{
+        for(let i =0; i<counter; i++){
+            axios.post("http://localhost:4000/orders",{
+                itemName:mealName,
+                itemPrice:mealPrice,
+                addedAt:new Date(),
+                table:JSON.parse(localStorage.getItem("user"))._id,
+                ingds:addedIngds
+            }).then(res=>{
+
+            }).catch(err=>{
+                swal({title:"Something went wrong",text:"Contact the staff please",icon:"error"});
+            });
+        }
+        if(counter > 1){
+            swal({title:"Meals Added Successfully",text:`Added ${counter} ${mealName} to the check`,icon:"success"});
+        }else {
+            swal({title:"Meal Added Successfully",text:`Added ${mealName} to the check`,icon:"success"});
+        }
+        setCounter(1);
+    }
+
+
     const cont = (meals)=>{
         return(
             <div>
@@ -46,15 +90,23 @@ function MenuMeal({match}){
                 </Container>
                 <Container isCenter={true}>
                     {
-                        id === "main" ? <SoloSection heading={id.replace(/^\w/, (c) => c.toUpperCase())} meals={meals} divClass="col-lg-6"
+                        id === "main" ? <MenuSection heading={id.replace(/^\w/, (c) => c.toUpperCase())} meals={meals} divClass="col-lg-6"
                         setMealId={setMealId} ingdsClick={ingdsClick} setIngdsClick={setIngdsClick}
                     /> : 
-                        <SoloSection heading={id.replace(/^\w/, (c) => c.toUpperCase())} meals={meals} divClass="col-lg-6"
-                        setMealId={setMealId}
+                        <MenuSection heading={id.replace(/^\w/, (c) => c.toUpperCase())} meals={meals} divClass="col-lg-6"
+                        setMealId={setMealId} setCountClick={setCountClick} countClick={countClick}
                         />
                     }
                 </Container>
-                {ingdsClick ? <MealComps ingdsClick={ingdsClick} setIngdsClick={setIngdsClick} mealId={mealId}/> : null}
+                {ingdsClick ? <MealComps ingdsClick={ingdsClick} setIngdsClick={setIngdsClick}
+                    displaySelect={displaySelect} setCounter={setCounter}mealName={mealName}
+                    orderMeals={orderMeals} ingds={ingds} setIngds={setIngds} addedIngds={addedIngds}
+                    setAddedIngds={setAddedIngds} getMeal={getMeal} 
+                    /> : null}
+
+                {countClick ? <CounterMenu countClick={countClick} setCountClick={setCountClick}
+                    displaySelect={displaySelect}  orderMeals={orderMeals} getMeal={getMeal} setCounter={setCounter}
+                    /> : null}
             </div>
         )
     }

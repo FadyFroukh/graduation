@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import "../css/Order.css";
 import {FaSortDown,FaSortUp, FaTrash} from 'react-icons/fa';
 import axios from 'axios';
-function Order({order,total,setTotal}){
+import swal from 'sweetalert';
+function Order({order,total,setTotal,name}){
 
     const [show,setShow] = useState(false);
 
@@ -12,8 +13,8 @@ function Order({order,total,setTotal}){
         }).catch(err=>{
             console.log("An error occured");
         })
-
         setTotal((total)=>total - order.itemPrice);
+        swal({title:"Item Deleted Successfully",text:`${order.itemName} Deleted from ${name} Check`,icon:"success"});
     }
 
     const showIngds = ()=>{

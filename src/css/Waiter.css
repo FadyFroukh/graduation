@@ -68,8 +68,10 @@ a{
     align-items: center;
     flex-direction: column;
 }
-.table-orders-overlay .table-orders{
-    width: 400px;
+.table-orders-overlay h3 {
+    margin-bottom: 20px;
+}
+.table-orders-overlay .table-orders , .meals-orders{
     height: 400px;
     overflow-y: scroll;
     padding: 12px;
@@ -101,4 +103,14 @@ a{
 .table-orders-overlay .total > p{
     font-weight: bold;
     font-size: 20px;
+}
+
+.meals-orders .meal{
+    display: flex;
+    height: 80px;
+    font-size: 24px;
+    justify-content: space-between;
+}
+.meals-orders .meal svg:first-of-type{
+    margin-right: 10px;
 }

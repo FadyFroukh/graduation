@@ -1,26 +1,15 @@
-import axios from 'axios';
 import React from 'react';
 import {FaPlusCircle,FaInfoCircle} from 'react-icons/fa';
 import swal from 'sweetalert';
 
-function TableIcons({meal,ingdsClick,setIngdsClick,setMealId}){
+function TableIcons({meal,ingdsClick,setIngdsClick,setMealId,countClick,setCountClick}){
     
     const handleIngdsMenu = ()=>{
         setMealId(meal._id);
-        if(ingdsClick === false){
+        if(meal.itemCat === "main"){
             setIngdsClick(!ingdsClick);
         }else{
-            axios.post("http://localhost:4000/orders",{
-            itemName:meal.itemName,
-            itemPrice:meal.itemPrice,
-            addedAt:new Date(),
-            table:JSON.parse(localStorage.getItem("user"))._id
-            }).then(res=>{
-            console.log(res.data);
-            swal({title:"Meal Added Successfully",text:`Added ${meal.itemName} to the check`,icon:"success"});
-            }).catch(err=>{
-                swal({title:"Something went wrong",text:"Contact the staff please",icon:"error"});
-            })
+            setCountClick(!countClick);
         }
     }
 
@@ -32,7 +21,7 @@ function TableIcons({meal,ingdsClick,setIngdsClick,setMealId}){
         <>
             <div className="icons">
                 <FaPlusCircle onClick={handleIngdsMenu}/>
-                <FaInfoCircle onClick={handleShowInfo}/>
+                <FaInfoCircle onClick={handleShowInfo} />
             </div>
         </>
     );

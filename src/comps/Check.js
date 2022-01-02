@@ -59,8 +59,8 @@ function Check(){
                         </div>
                         <div className="col-lg-12 check-div">
                             {
-                                orders.map((order,index)=>
-                                    <CheckItem key={index} order={order} total={total} setTotal={setTotal}/>
+                                orders.map((order)=>
+                                    <CheckItem key={order._id} order={order} total={total} setTotal={setTotal}/>
                                 )
                             }
 
