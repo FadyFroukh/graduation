@@ -41,14 +41,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 .meal-ingds .meal-ingds-container .ingd .ingd-name {
     margin-top: 10px;
 }
 .meal-ingds .meal-ingds-container .ingd img{
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
+    width: 70%;
+    height: 70%;
 }
 
 .meal-ingds .orders-counter{
