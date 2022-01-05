@@ -8,6 +8,7 @@ import Check from '../../Check';
 import MealComps from '../../MealComps';
 import CounterMenu from '../../CounterMenu';
 import { orderMeals,displaySelect,getMeal,fetchMeals } from '../Utils';
+import ReadyOverlay from '../../ReadyOverlay';
 
 function Menu(){
 
@@ -32,6 +33,12 @@ function Menu(){
     const [countClick,setCountClick] = useState(false);
 
     const [mealId,setMealId] = useState("");
+
+
+    const [minutes,setMinutes] = useState(20);
+    const [overlayClick,setOverlayClick] = useState(false);
+    const [status,setStatus] = useState(false);
+
 
     const handleClick = ()=>{
         setClick(!click);
@@ -59,23 +66,25 @@ function Menu(){
                         </div>
                     </Container>
                     <Container>
-                        <MenuSection heading="Main Meals" meals={mainMeals} divClass="col-lg-4"
+                        <MenuSection heading="Main Meals" meals={mainMeals} divClass="col-lg-10"
                         ingdsClick={ingdsClick} setIngdsClick={setIngdsClick} setMealId={setMealId}
                          />
-                        <MenuSection heading="Appetizers" meals={desserts} divClass="col-lg-4" 
+                        <MenuSection heading="Appetizers" meals={desserts} divClass="col-lg-10" 
                         setMealId={setMealId} countClick={countClick} setCountClick={setCountClick}
                         />
-                        <MenuSection heading="Drinks" meals={drinks} divClass="col-lg-4"
+                        <MenuSection heading="Drinks" meals={drinks} divClass="col-lg-10"
                         setMealId={setMealId} countClick={countClick} setCountClick={setCountClick}
                         />
-                        <MenuSection heading="Sweets" meals={sweets} divClass="col-lg-6" 
+                        <MenuSection heading="Sweets" meals={sweets} divClass="col-lg-10" 
                         setMealId={setMealId} countClick={countClick} setCountClick={setCountClick}
                         />
-                        <MenuSection heading="Shishas" meals={shishas} divClass="col-lg-6" 
+                        <MenuSection heading="Shishas" meals={shishas} divClass="col-lg-10" 
                         setMealId={setMealId} countClick={countClick} setCountClick={setCountClick}
                         />
                     </Container>
-                    {click ? <Check/> : null}
+                    {click ? <Check overlayClick={overlayClick} setOverlayClick={setOverlayClick} 
+                        status={status} setStatus={setStatus} id={id}
+                    /> : null}
 
                     {ingdsClick ? <MealComps ingdsClick={ingdsClick} setIngdsClick={setIngdsClick}
                     displaySelect={displaySelect} setCounter={setCounter}mealName={mealName}
@@ -99,6 +108,10 @@ function Menu(){
                         setCounter,
                         id
                     })} getMeal={()=>getMeal({mealId,setIngds,setMealName,setMealPrice})} setCounter={setCounter} mealName={mealName}
+                    /> : null}
+
+                    {overlayClick ? <ReadyOverlay overlayClick={overlayClick} setOverlayClick={setOverlayClick}
+                        status={status} setStatus={setStatus} id={id} minutes={minutes} setMinutes={setMinutes}
                     /> : null}
                  </>
             }

@@ -1,0 +1,40 @@
+.ready-overlay{
+    height: 160vh;
+    width: 100%;
+    background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.msg-overlay{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+.msg-overlay h1{
+    margin-bottom: 20px;
+    font-size: 72px;
+}
+.msg-overlay h3{
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+.msg-overlay h5{
+    font-weight: bold;
+}
+@keyframes getBig {
+    50%{
+        transform: scale(1.15);
+    }
+    70%{
+        transform: scale(1.3);
+    }
+    100%{
+        transform: scale(1.5);
+    }
+}

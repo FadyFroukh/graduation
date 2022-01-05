@@ -5,3 +5,8 @@
     align-items: center;
     height: 100vh;
 }
+
+.header-btn , .check-btn{
+    display: flex;
+    justify-content: center;
+}

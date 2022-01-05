@@ -5,12 +5,13 @@ import {FaTimes} from 'react-icons/fa';
 import {IconContext} from 'react-icons/lib';
 import CheckItem from './CheckItem';
 import axios from 'axios';
-function Check(){
+import { handleStatus } from './pages/Utils';
+
+function Check({overlayClick,setOverlayClick,status,setStatus,id}){
 
     const [click,setClick] = useState(false);
     const [orders,setOrders] = useState([]);
     const [total,setTotal] = useState(0);
-    const [status,setStatus] = useState();
     const [user,setUser] = useState([]);
     
     useEffect(()=>{
@@ -28,15 +29,10 @@ function Check(){
         setClick(!click)
     }
 
-    const handleStatus = ()=>{
+    const handleReadyStatus = ()=>{
         setStatus(!status);
-
-        axios.put("http://localhost:4000/tables",{id:JSON.parse(localStorage.getItem("user"))._id , status:user.status}).then(res=>{
-            console.log(res.data);
-        }).catch(err=>{
-            console.log("Error Updating Status");
-        })
-
+        setOverlayClick(!overlayClick);
+        handleStatus({id,status});
     }
 
     return(
@@ -51,11 +47,7 @@ function Check(){
                             <FaTimes onClick={handleExit}/>
                         </div>
                         <div className="col-lg-12 button-header">
-                            <button className="ready-button" onClick={handleStatus}>
-                                {
-                                    status ? "Not Ready" : "Ready" 
-                                }
-                            </button>
+                            <button className="ready-button" onClick={handleReadyStatus}>Ready</button>
                         </div>
                         <div className="col-lg-12 check-div">
                             {

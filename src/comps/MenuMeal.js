@@ -39,16 +39,16 @@ function MenuMeal({match}){
         return(
             <div>
                 <Container>
-                    <div className="col-lg-6">
+                    <div className="col-lg-6 header-btn">
                         <Button btnText="Go Back" marginTop="20px" btnWidth="200px" btnLink="/table"/>
-                    </div>              
+                    </div>
                 </Container>
                 <Container isCenter={true}>
                     {
-                        id === "main" ? <MenuSection heading={id.replace(/^\w/, (c) => c.toUpperCase())} meals={meals} divClass="col-lg-6"
+                        id === "main" ? <MenuSection heading={id.replace(/^\w/, (c) => c.toUpperCase())} meals={meals} divClass="col-lg-10"
                         setMealId={setMealId} ingdsClick={ingdsClick} setIngdsClick={setIngdsClick}
                     /> : 
-                        <MenuSection heading={id.replace(/^\w/, (c) => c.toUpperCase())} meals={meals} divClass="col-lg-6"
+                        <MenuSection heading={id.replace(/^\w/, (c) => c.toUpperCase())} meals={meals} divClass="col-lg-10"
                         setMealId={setMealId} setCountClick={setCountClick} countClick={countClick}
                         />
                     }

@@ -49,28 +49,28 @@ function WaiterTable({match}){
                 <h2>{user.name}</h2>
                 <div className='container'>
                     <div className='row justify-content-center'>
-                        <div className="table-orders col-lg-4">
-                            <h3 className='text-center'>Orders</h3>
+                        <h3 className='text-center'>Orders</h3>
+                        <div className="table-orders col-lg-10">
                             {
-                                
-                                    user?.orders?.map((order,index)=>
-                                    <div key={index} className='o'>
-                                    <Order order={order} key={index} tableName={user.name} total={total} setTotal={setTotal} name={user.anm}/>
-                                    </div>
-                                    )
+                                user?.orders?.length > 0 ? user?.orders?.map((order,index)=>
+                                <div key={index} className='o'>
+                                <Order order={order} key={index} tableName={user.name} total={total} setTotal={setTotal} name={user.anm}/>
+                                </div>
+                                ) : <div className='no-orders'><h1>No Orders Yet</h1></div>
                             }
-                            <div className="total">
+                        </div>
+                        <div className="total">
                             <p>Total</p>
                             <p>{total}</p>
-                            </div>
                         </div>
-                        <div className='col-lg-4 meals-orders'>
-                            <h3 className='text-center'>Add an Order</h3>
+                        <h3 className='text-center'>Add an Order</h3>
+                        <div className='col-lg-10 meals-orders'>
+                            
                             {
                                 meals?.map((meal,index)=>
                                     <div className='meal' key={index}>
-                                        <p>{meal.itemName}</p>
-                                        <p>{meal.itemPrice}</p>
+                                        <p className='meal-name'>{meal.itemName}</p>
+                                        <p className='meal-price'>{meal.itemPrice}</p>
                                         <div>
                                         <TableIcons meal={meal} ingdsClick={ingdsClick} setIngdsClick={setIngdsClick} setMealId={setMealId}
                                         countClick={countClick} setCountClick={setCountClick}

@@ -1,22 +1,34 @@
 import React from 'react';
-import {FaPlusCircle} from 'react-icons/fa';
 import swal from 'sweetalert';
 
-function Ingredient({ingd,addedIngds,setAddedIngds,mealName}){
+function Ingredient({ingds,addedIngds,setAddedIngds,mealName,clickCount,setClickCount,count}){
+
+
+    function move(){
+        if(clickCount < count-1){
+            setClickCount((clickCount)=>clickCount+=1);
+        }else{
+            setClickCount(0);
+        }
+    }
 
     const handleAddIngd = ()=>{
-        if(addedIngds.indexOf(ingd) === -1){
-            setAddedIngds((addedIngds)=>[...addedIngds,ingd]);
-            swal({title:"Ingredient Added Successfully",text:`Added ${ingd} to your ${mealName}`,icon:"success"});
+        if(addedIngds.indexOf(ingds[clickCount]) === -1){
+            setAddedIngds((addedIngds)=>[...addedIngds,ingds[clickCount]]);
+            swal({title:"Ingredient Added Successfully",text:`Added ${ingds[clickCount]} to your ${mealName}`,icon:"success"});
+            setTimeout(()=>{
+                move();
+            },500)
         }else {
-            swal({title:"Ingredient Already Added !",text:`Added ${ingd} to your ${mealName}`,icon:"info"});
+            swal({title:"Ingredient Already Added !",text:`Added ${ingds[clickCount]} to your ${mealName}`,icon:"info"});
+            move();
         }
     }
 
     return(
-        <div className='ingd'>
-            <p>{ingd}</p>
-            <FaPlusCircle size="25" onClick={handleAddIngd}/>
+        <div className='ingd' onClick={handleAddIngd}>
+            <img src={`http://localhost:3000/images/ingredients/${ingds[clickCount]}.png`} alt="Ingredient"/>
+            <p className='ingd-name'><b>{ingds[clickCount]}</b></p>
         </div>
     );
 }

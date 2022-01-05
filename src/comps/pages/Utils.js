@@ -70,3 +70,11 @@ export function fetchMeals(obj){
         obj.setError(true);
     })
 }
+
+export function handleStatus(obj){
+    axios.put("http://localhost:4000/tables",{id:obj.id , status:obj.status}).then(res=>{
+            console.log(res.data);
+        }).catch(err=>{
+            console.log("Error Updating Status");
+        })
+}

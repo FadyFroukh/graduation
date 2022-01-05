@@ -78,7 +78,7 @@ function EditMealMenu({showMenu,setShowMenu,id,oldMeal}){
                     <p className='text-center'><b>Editing: {oldMeal.itemName}</b></p>
                     <div className="form-part">
                         <label htmlFor="meal-name">Meal Name</label>
-                        <input type="text" name="meal-name" maxLength="25" value={mealName} onChange={handleMealName}/>
+                        <input type="text" name="meal-name" maxLength="50" value={mealName} onChange={handleMealName}/>
                     </div>
                     <div className="form-part">
                         <label htmlFor="meal-cat">Meal Category</label>

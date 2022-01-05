@@ -23,16 +23,18 @@ function CounterMenu({displaySelect,orderMeals,countClick,setCountClick,getMeal,
 
     return(
         <div className='counter-menu'>
-            <div>
-                <FaTimes size="30" onClick={handleCountMenu}/>
-            </div>
-            <h5>Ordering `<b>{mealName}</b>`</h5>
-            <div className='counter-body'>
-                <h5>Choose Number of Items</h5>
-                <select onChange={handleCounter}>
-                    {displaySelect()}
-                </select>
-                <button onClick={handleAddToCheck}>Order Meal</button>
+            <div className='counter-container'>
+                <div>
+                    <FaTimes size="30" onClick={handleCountMenu}/>
+                </div>
+                <h5>Ordering `<b>{mealName}</b>`</h5>
+                <div className='counter-body'>
+                    <h5>Choose Number of Items</h5>
+                    <select onChange={handleCounter}>
+                        {displaySelect()}
+                    </select>
+                    <button onClick={handleAddToCheck}>Order Meal</button>
+                </div>
             </div>
         </div>
     );

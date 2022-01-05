@@ -62,11 +62,15 @@ a{
 
 /* Singular Table Code */
 .table-orders-overlay{
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-top: 20px;
+}
+h2{
+    margin-bottom: 20px;
 }
 .table-orders-overlay h3 {
     margin-bottom: 20px;
@@ -76,6 +80,7 @@ a{
     overflow-y: scroll;
     padding: 12px;
     border-radius: 12px;
+    background-color: #eee;
 }
 .table-orders .order{
     display: flex;
@@ -89,16 +94,25 @@ a{
 .table-orders .order .order-ops{
     cursor: pointer;
 }
+.table-orders .order .order-name{
+    width: 50%;
+}
+.table-orders .order .order-price{
+    width: 50%;
+}
 .table-orders .order p {
     margin: 0;
 }
-.table-orders .order:nth-child(even){
-    background-color: #eee;
+.table-orders .order:nth-child(even) , 
+.meals-orders .meal:nth-child(even){
+    background-color: #aaa;
 }
 .table-orders-overlay .total{
     display: flex;
     justify-content: space-around;
     width: 400px;
+    margin-bottom: 40px;
+    margin-top: 15px;
 }
 .table-orders-overlay .total > p{
     font-weight: bold;
@@ -111,6 +125,19 @@ a{
     font-size: 24px;
     justify-content: space-between;
 }
+.meals-orders .meal .meal-name{
+    width: 50%;
+}
+.meals-orders .meal .meal-price{
+    width: 50%;
+}
 .meals-orders .meal svg:first-of-type{
     margin-right: 10px;
+}
+
+.no-orders{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

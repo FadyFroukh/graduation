@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import {FaTimes } from 'react-icons/fa';
+import React, { useEffect,useState } from 'react';
+import {FaArrowAltCircleLeft, FaArrowAltCircleRight, FaTimes } from 'react-icons/fa';
 import "../css/Menu.css";
 import Ingredient from './Ingredient';
 function MealComps({ingdsClick,setIngdsClick,displaySelect,mealName,orderMeals,ingds,addedIngds,setAddedIngds,getMeal,setCounter})
@@ -8,6 +8,9 @@ function MealComps({ingdsClick,setIngdsClick,displaySelect,mealName,orderMeals,i
     useEffect(()=>{
         getMeal();
     },[])
+
+    const [clickCount,setClickCount] = useState(0);
+    const count = ingds.length;
 
     const handleCounter = (e)=>{
         setCounter(e.target.value);
@@ -23,6 +26,21 @@ function MealComps({ingdsClick,setIngdsClick,displaySelect,mealName,orderMeals,i
        setAddedIngds([]);
     }
 
+    const handleClickRight = ()=>{
+        if(clickCount < count-1){
+            setClickCount((clickCount)=>clickCount+=1);
+        }else {
+            setClickCount(0);
+        }
+    }
+    const handleClickLeft = ()=>{
+        if(clickCount === 0){
+            setClickCount(count-1);
+        }else{
+            setClickCount((clickCount)=>clickCount-=1);
+        }
+    }
+
     return(
         <div className='meal-comps'>
             <header>
@@ -32,17 +50,13 @@ function MealComps({ingdsClick,setIngdsClick,displaySelect,mealName,orderMeals,i
             <div className='meal-ingds'>
                 <h5>Ordering `<b>{mealName}</b>`</h5>
                 <div className='meal-ingds-container'>
+                    <FaArrowAltCircleLeft size="40" onClick={handleClickLeft} style={{right:"100%"}}/>
                     {
-                        ingds?.length > 0 ? 
-                        ingds?.map((ingd,index)=>
-                            <div key={index}>
-                                <Ingredient ingd={ingd} setAddedIngds={setAddedIngds} addedIngds={addedIngds} mealName={mealName}/>
-                            </div>
-                        ) : 
-                        <div className='no-ingds'>
-                            <h3 className='text-center'>No added Ingredients</h3>
-                        </div>
+                        ingds.length > 0 ? <Ingredient ingds={ingds} setAddedIngds={setAddedIngds} addedIngds={addedIngds} mealName={mealName}
+                            clickCount={clickCount} setClickCount={setClickCount} count={count}
+                        /> : null
                     }
+                   <FaArrowAltCircleRight size="40" onClick={handleClickRight} style={{left:"100%"}}/>
                 </div>
                 <button onClick={handleAddToCheck}>Order Meal</button>
                 <div className='orders-counter'>
@@ -54,6 +68,7 @@ function MealComps({ingdsClick,setIngdsClick,displaySelect,mealName,orderMeals,i
                     </select>
                 </div>
             </div>
+            she just that type of girl
         </div>
     );
 }
