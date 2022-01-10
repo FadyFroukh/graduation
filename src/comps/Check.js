@@ -52,7 +52,9 @@ function Check({overlayClick,setOverlayClick,status,setStatus,id}){
                         <div className="col-lg-12 check-div">
                             {
                                 orders.map((order)=>
-                                    <CheckItem key={order._id} order={order} total={total} setTotal={setTotal}/>
+                                    <div key={order._id}>
+                                    <CheckItem order={order} total={total} setTotal={setTotal}/>
+                                    </div>
                                 )
                             }
 
