@@ -68,7 +68,6 @@ function MealComps({ingdsClick,setIngdsClick,displaySelect,mealName,orderMeals,i
                     </select>
                 </div>
             </div>
-            she just that type of girl
         </div>
     );
 }
