@@ -11,7 +11,8 @@ function Table(){
     const [date,setDate] = useState();
     const [day,setDay] = useState();
 
-    const meals = ["Hamburger","Tortilla","Shawerma"];    
+    const meals = ["Hamburger","Tortilla","Shawerma","Fajita","Fettuccine Alfredo","Chicken Steak","Tuna Sandwich","Italian Sandwich",
+"Quesadilla","Zinger Sandwich"];    
 
 
     useEffect(()=>{

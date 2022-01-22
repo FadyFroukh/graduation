@@ -27,7 +27,7 @@ function Ingredient({ingds,addedIngds,setAddedIngds,mealName,clickCount,setClick
 
     return(
         <div className='ingd' onClick={handleAddIngd}>
-            <img src={`http://localhost:3000/images/ingredients/${ingds[clickCount]}.png`} alt="Ingredient"/>
+            <img src={`http://localhost:3000/images/Ingredients/${ingds[clickCount].toLowerCase()}.jpg`} alt="Ingredient"/>
             <p className='ingd-name'><b>{ingds[clickCount]}</b></p>
         </div>
     );

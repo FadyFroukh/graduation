@@ -1,15 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "../css/ReadyOverlay.css";
 import { handleStatus } from "./pages/Utils";
 
-function ReadyOverlay({overlayClick,setOverlayClick,status,setStatus,id,minutes,setMinutes}){
-
-    useEffect(()=>{
-        const timer = setInterval(()=>{
-            
-        },100)
-    },[])
-
+function ReadyOverlay({overlayClick,setOverlayClick,status,setStatus,id}){
 
     const handleReadyStatus = ()=>{
         setStatus(!status);
@@ -27,7 +20,7 @@ function ReadyOverlay({overlayClick,setOverlayClick,status,setStatus,id,minutes,
             <div className="msg-overlay">
                 <h1>Thank You For Being Here!</h1>
                 <h3>Double Click to Exit to Menu</h3>
-                <h5>Your Order Should Be Ready In {minutes}</h5>
+                <h5>Your Order Should Be Ready Soon!</h5>
             </div>
         </div>
     );

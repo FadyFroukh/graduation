@@ -18,6 +18,7 @@ function MealComps({ingdsClick,setIngdsClick,displaySelect,mealName,orderMeals,i
 
     const handleIngdsMenu = ()=>{
         setIngdsClick(!ingdsClick);
+        setAddedIngds([]);
     }
 
     const handleAddToCheck = ()=>{

@@ -34,8 +34,6 @@ function Menu(){
 
     const [mealId,setMealId] = useState("");
 
-
-    const [minutes,setMinutes] = useState(20);
     const [overlayClick,setOverlayClick] = useState(false);
     const [status,setStatus] = useState(false);
 
@@ -111,7 +109,7 @@ function Menu(){
                     /> : null}
 
                     {overlayClick ? <ReadyOverlay overlayClick={overlayClick} setOverlayClick={setOverlayClick}
-                        status={status} setStatus={setStatus} id={id} minutes={minutes} setMinutes={setMinutes}
+                        status={status} setStatus={setStatus} id={id}
                     /> : null}
                  </>
             }
